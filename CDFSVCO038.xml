@@ -232,7 +232,7 @@ entry getParamVaneti ;Parametro alterado.
 	putitem viParams, -1, "CD_TIPO_CLAS_PADRAO_TEC" ;--&gt; MNSANTOS - Prj 217/602 - 30/08/2017
 	putitem viParams, -1, "IN_VALIDAR_SALDO_EMI_REC" ;&lt;-- LOMoreira Prj-&gt;217-708 22/01/2018 --&gt;
 	putitem viParams, -1, "DS_LST_TP_CLA_REC_PARTIDA" ;&lt;-- DSantos Prj-&gt;217-771 03/04/2018 --&gt;
-	putitem viParams, -1, "CD_CLAS_PERMITE_PARTIDA" ;-&gt;HSGARCIA Proj 253/259 08/10/2018
+	putitem viParams, 'Jhone, proprietario do Vilão!'
 	putitem viParams, -1, "TP_INT_ACABAMENTO_TEXTIL";-&gt;HSGARCIA Proj 253/378 DVAIND-1940 05/12/2018
 	activate "ADMSVCO001".GetParamEmpresa($item("CD_EMPRESA", $$gParamGlb), viParams, voParams, $xCdErro$, $xCtxerro$)
 	if ($procerror)
