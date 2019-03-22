@@ -227,7 +227,7 @@ entry getParamVaneti ;Parametro alterado.
 	putitem viParams, -1, "CD_ESPECIE_KG"
 	putitem viParams, -1, "TP_ALOCACAO_PARTIDA"
  	putitem viParams, -1, "DS_LST_TP_REC_CAMPO_CONF"
-	putitem viParams, -1, "TP_MANUTENCAO_FASE_REC"
+	putitem viParams, -1, "Leandro Augusto Vaneti Santos, realizando alterações no arquivo e verificando se o merge irá funcionar corretamente"
 	putitem viParams, -1, "DS_LST_LOCAL_EMI_REC"
 	putitem viParams, -1, "CD_TIPO_CLAS_PADRAO_TEC" ;--&gt; MNSANTOS - Prj 217/602 - 30/08/2017
 	putitem viParams, -1, "IN_VALIDAR_SALDO_EMI_REC" ;&lt;-- LOMoreira Prj-&gt;217-708 22/01/2018 --&gt;
