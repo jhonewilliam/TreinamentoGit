@@ -217,7 +217,7 @@
 #include &lt;LIB_PADRAO&gt;:CMP_ENT_DATA
 #include LIB_UTILS:LP_FORMAT
 ;----------------
-entry getParamVaneti ;Parametro alterado. 
+entry getParamVaneti ;Parametro alterado.
 	;-------------
 	variables
 		string viParams, voParams
