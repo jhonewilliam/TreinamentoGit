@@ -183,7 +183,7 @@
 #info symbol TEMPLATENAME is already or also defined as a global or local constant
 #endif
 #define TEMPLATENAME=SVC001
-#Comment 
+#Comment
 
 #Comment end_of_references
 
@@ -194,13 +194,13 @@
 #info symbol GENERICA is already or also defined as a global or local constant
 #endif
 #define GENERICA=CDF_PARTIDASVC.CDF
-#Comment 
+#Comment
 
 #ifdefined UNQ_GENERICA
 #info symbol UNQ_GENERICA is already or also defined as a global or local constant
 #endif
 #define UNQ_GENERICA=CDF_PARTIDASVC
-#Comment 
+#Comment
 
 #Comment end_of_mappings
 
@@ -217,7 +217,7 @@
 #include &lt;LIB_PADRAO&gt;:CMP_ENT_DATA
 #include LIB_UTILS:LP_FORMAT
 ;----------------
-entry getParamEmp
+;Jhone entry getParamEmp
 	;-------------
 	variables
 		string viParams, voParams
@@ -240,10 +240,10 @@ entry getParamEmp
 		return(-1)
 	elseif ($status &lt; 0)
 		return(-1)
-	endif	
+	endif
 	$cdEspecieKg$ = $item("CD_ESPECIE_KG", voParams)
 	$tpAlocacaoPartida$ = $item("TP_ALOCACAO_PARTIDA", voParams)
-	$dsLstTpRecCampoConf$ = $replace($item("DS_LST_TP_REC_CAMPO_CONF", voParams), 1, ";", "&uSEP;", -1) 
+	$dsLstTpRecCampoConf$ = $replace($item("DS_LST_TP_REC_CAMPO_CONF", voParams), 1, ";", "&uSEP;", -1)
 	$tpManutencaoFaseRec$ = $item("TP_MANUTENCAO_FASE_REC", voParams)
 	$dsLstLocalEmiRec$ = $replace($item("DS_LST_LOCAL_EMI_REC", voParams), 1, ";", "&uSEP;", -1)
 	$cdTipoClasPadraoTec$ = $item("CD_TIPO_CLAS_PADRAO_TEC", voParams) ;--&gt; MNSANTOS - Prj 217/602 - 30/08/2017
@@ -286,7 +286,7 @@ entry getTempoPartida
 		string vDsRetorno, viParams, vDsRegProcesso
 		boolean vInDisponivel
 	endvariables
-	
+
 	if ($empty("CDF_PARTIDAPTSVC"))
 		vInDisponivel = &lt;TRUE&gt;
 		if (!$empty("CDF_PARTIDAISVC"))
@@ -347,7 +347,7 @@ entry getTempoPartida
 					endif
 				endif
 			endif
-		endif		
+		endif
 		setocc "CDF_PARTIDAPTSVC", $curocc("CDF_PARTIDAPTSVC") + 1
 	endwhile
 
@@ -431,10 +431,10 @@ entry getQtProduzidaItemPartida
 		while ($status &gt;= 0)
 			poQtPartida = poQtPartida + 1
 			clear/e "CDF_PARTIDAFISVC"
-			CD_EMPRESA.CDF_PARTIDAFISVC/init = CD_EMPRESA.V_CDF_PARTIDASVC	
+			CD_EMPRESA.CDF_PARTIDAFISVC/init = CD_EMPRESA.V_CDF_PARTIDASVC
 			NR_PARTIDA.CDF_PARTIDAFISVC/init = NR_PARTIDA.V_CDF_PARTIDASVC
 			NR_SEQPARTIDA.CDF_PARTIDAFISVC/init = NR_SEQPROCESSO.V_CDF_PARTIDASVC
-			NR_SEQITEM.CDF_PARTIDAFISVC/init = NR_SEQUENCIA.V_CDF_PARTIDASVC	
+			NR_SEQITEM.CDF_PARTIDAFISVC/init = NR_SEQUENCIA.V_CDF_PARTIDASVC
 			retrieve/e "CDF_PARTIDAFISVC"
 			if($status &gt;= 0)
 				setocc "CDF_PARTIDAFISVC", 1
@@ -479,7 +479,7 @@ entry inMovFinOpEstornado
 		endif
 	endif
 
-	return(&lt;FALSE&gt;)	
+	return(&lt;FALSE&gt;)
 end ;inMovFinOpEstornado
 
 ;-------------------------
@@ -513,7 +513,7 @@ entry getTempoSetupPartida
 				;- Identifica produto origem e destino, onde origem é a partida atual e destino a próxima partida.
 				vDsOrigem = getItemIgualPartida("F_CDF_PARTIISVC")
 				vDsDestino = getItemIgualPartida("CDF_PARTIDAISVC")
-			endif			
+			endif
 		endif
 	endif
 
@@ -575,7 +575,7 @@ entry getItemIgualPartida
 		if (vInIgual)
 			vCdCor = vCdAtual
 		endif
-		
+
 		vInIgual = &lt;TRUE&gt;
 		setocc "%%piDsEntity", 1
 		while ($status &gt;= 0)
@@ -665,7 +665,7 @@ entry descreverTempoMinuto
 		vQtDia = vQtHora / 24
 		vQtDia = vQtDia[trunc]
 		vQtHora = vQtHora - (vQtDia * 24)
-	endif	
+	endif
 	vQtSegundo = $frac(piQtMinuto)
 	if (vQtSegundo &gt; 0)
 		vQtSegundo = vQtSegundo * 60
@@ -696,7 +696,7 @@ entry descreverTempoMinuto
 		endif
 	endif
 	vQtSegundo = vQtSegundo[round]
-	if (vQtSegundo &gt; 0 &amp; vDsTempo = "")		
+	if (vQtSegundo &gt; 0 &amp; vDsTempo = "")
 		if (vQtSegundo &gt; 1)
 			vDsTempo = "%%vDsTempo%%vQtSegundo %%traduzirTexto("segundos") "
 		else
@@ -736,7 +736,7 @@ entry inValidarProcesso
 		return(0)
 	endif
 	; DSantos --&gt;
-	
+
 	vTpPartida = getMaqConfPar("TP_PARTIDA", piCdMaquina)
 
 	if (vTpPartida = 1)
@@ -850,13 +850,13 @@ entry addItemOpOrigemPartida
 		putitem/id vDsRegistro, "NR_CICLO", NR_CICLO.PCP_OPISVC
 		putitem/id vDsRegistro, "NR_OP", NR_OP.PCP_OPISVC
 		putitem/id vDsRegistro, "CD_PRODUTO", CD_PRODUTO.PCP_OPISVC
-		putitem/id vDsRegistro, "CD_PROCESSO", piCdProcesso		
+		putitem/id vDsRegistro, "CD_PROCESSO", piCdProcesso
 		putitem/id vDsRegistro, "QT_ALOCAR", getQtAlocarItemOp(vDsRegistro, piCdProcesso, piCdMaquina, &lt;FALSE&gt;, vDsMotivo, "")
 		vNrStatus = $status
 		if(vDsMotivo != "")
 			putitem/id vDsRegistro, "DS_MOTIVO", vDsMotivo
-			$lstItensDescartados$ = adicionarRegistroLista(vDsRegistro, $lstItensDescartados$, "DS_LSTITEMOPPROC")			
-		endif 		
+			$lstItensDescartados$ = adicionarRegistroLista(vDsRegistro, $lstItensDescartados$, "DS_LSTITEMOPPROC")
+		endif
 		if (vNrStatus &lt; 0)
 			return(piDsRetorno)
 		endif
@@ -1119,7 +1119,7 @@ entry getQtAlocarAgrupador
 				endif
 				if (vNrStatus &lt; 0)
 					return("")
-				endif			
+				endif
 				;--&gt; MNSANTOS - Prj 217/240 - 11/05/2016
 				if(vQtItem = 0)
 					return(0)
@@ -1135,7 +1135,7 @@ entry getQtAlocarAgrupador
 				putitem poDsLstItem, -1, vDsParams
 			endif
 
-			if(vInDisponivel)	
+			if(vInDisponivel)
 				vDsParams = ""
 				if (piDsEntity = "PCP_AGRUOPISVC")
 					putitem/id vDsParams, "CD_EMPRESA", CD_EMPOPI.PCP_AGRUOPISVC
@@ -1276,7 +1276,7 @@ entry getQtAlocarItemLote
 	putitem/id vDsParams, "NR_CICLO", $item("NR_CICLO", piParams)
 	putitem/id vDsParams, "NR_OP", $item("NR_OP", piParams)
 	vCdCategoria = getFieldData("CD_CATEGORIA", "PCP_OPCADICSVC", vDsParams)
-	
+
 	if (vTpQuantidade = 2)
 		if (getFieldData("IN_REPROCESSO", "PCP_OPILOTEISVC", piParams) = &lt;TRUE&gt;)
 			;&lt;-- DSantos Prj-&gt;217-571 27/07/2017
@@ -1339,7 +1339,7 @@ end ;getQtAlocarItemLote
 ;----------------------------
 entry getQtBaixadaMpPrincipal
 	;-------------------------
-	returns numeric 
+	returns numeric
 	params
 		string piParams : IN
 		string poParams : OUT ;-&gt;HSGARCIA Proj 253/296 DVAIND-1145 24/10/2018
@@ -1348,7 +1348,7 @@ entry getQtBaixadaMpPrincipal
 		numeric vQtBaixada, vQtItemLote, vQtItemOp, vPrConsumo, vQtDesmembrada
 		string vDsCondicao, vDsRegMpI, vDsRegMp
 	endvariables
-	
+
 	;vQtDesmembrada = getQtDesmembradaItemLote(piParams) ;&lt;-- DSantos Prj-&gt;217-571 27/07/2017 --&gt;;IAS - PRJ/TAR - 220/3967 - DVAIND-2643 - 19/02/2019
 
 	vDsCondicao = ""
@@ -1360,7 +1360,7 @@ entry getQtBaixadaMpPrincipal
 		vDsCondicao = ""
 		putitem/id vDsCondicao, "CD_EMPRESA", $item("CD_EMPRESA", piParams)
 		putitem/id vDsCondicao, "NR_CICLO", $item("NR_CICLO", piParams)
-		putitem/id vDsCondicao, "NR_OP", $item("NR_OP", piParams)	
+		putitem/id vDsCondicao, "NR_OP", $item("NR_OP", piParams)
 		putitem/id vDsCondicao, "CD_PRODUTOPA", $item("CD_PRODUTO", piParams)
 		putitem/id vDsCondicao, "CD_PRODUTOMP", $item("CD_PRODUTOMP", getRegistro($handleEntity$))
 		$handleEntity$-&gt;consultar("PCP_OPMPISVC", vDsCondicao)
@@ -1385,7 +1385,7 @@ entry getQtBaixadaMpPrincipal
 						vDsCondicao = ""
 						putitem/id vDsCondicao, "CD_EMPRESA", $item("CD_EMPRESA", piParams)
 						putitem/id vDsCondicao, "NR_CICLO", $item("NR_CICLO", piParams)
-						putitem/id vDsCondicao, "NR_OP", $item("NR_OP", piParams)	
+						putitem/id vDsCondicao, "NR_OP", $item("NR_OP", piParams)
 						putitem/id vDsCondicao, "CD_PRODUTOPA", $item("CD_PRODUTO", piParams)
 						putitem/id vDsCondicao, "CD_PRODUTOMP", $item("CD_PRODUTO", vDsRegMp)
 						$handleEntity$-&gt;consultar("PCP_OPMPISVC", vDsCondicao)
@@ -1402,7 +1402,7 @@ entry getQtBaixadaMpPrincipal
 				delitem/id piParams, "NR_LOTE"
 				delitem/id piParams, "NR_ITEM"
 				vQtItemOp = getFieldData("QT_REAL", "PCP_OPISVC", piParams)
-				
+
 				;- Identifica quanto da quantidade baixada corresponde para o item da O.P.
 				vPrConsumo = (($item("QT_ESTIMADA", vDsRegMpI) * 100) / $item("QT_ESTIMADA", vDsRegMp))
 				vQtBaixada = $item("QT_RETIRADA", vDsRegMp) - $item("QT_RETORNADA", vDsRegMp)
@@ -1418,7 +1418,7 @@ entry getQtBaixadaMpPrincipal
 				;-&gt;HSGARCIA Proj 253/296 DVAIND-1145 24/10/2018
 				putitem/id poParams, "CD_MPSUBSTITUTA", $item("CD_PRODUTO", vDsRegMp)
 				putitem/id poParams, "QT_BAIXADA", vQtBaixada
-				;&lt;-		
+				;&lt;-
 			endif
 		endif
 	endif
@@ -1523,7 +1523,7 @@ entry converterQtProduto
 			if (vQtRelBanho = "")
 				vQtRelBanho = getQtRelBanhoConfMaq(vCdMaquina, vQtPeso)
 				if (vQtRelBanho != "")
-					$inCompMaq$ = &lt;TRUE&gt;			
+					$inCompMaq$ = &lt;TRUE&gt;
 				endif
 			else
 				$instancehandle-&gt;armazenarLog(-1, vCdReceita, "", vQtRelBanho)
@@ -1540,7 +1540,7 @@ entry converterQtProduto
 				endif
 			;&lt;-- DSantos Prj-&gt;217-511 30/05/2017
 			else
-				putitem/id viParams, "QT_CONE", $item("QT_CONE", piParams)				 
+				putitem/id viParams, "QT_CONE", $item("QT_CONE", piParams)
 				vQtConvertida = getVolumeConfMaq(vCdMaquina, getQtConeItemOp(viParams, piQtConverter))
 				if (vQtConvertida &gt; 0 &amp; piTpConversao = "MUL")
 					vInVolume = &lt;TRUE&gt;
@@ -1576,7 +1576,7 @@ entry converterQtProduto
 			else
 				;- Desconventer
 				vQtConvertida = vQtPeso / vQtPickup
-			endif				
+			endif
 		endif
 	endif
 
@@ -1596,7 +1596,7 @@ entry getInfTecConf
 	params
 		numeric piCdProduto : IN
 		numeric piCdMaquina : IN
-		numeric piCdAplicacao : IN	
+		numeric piCdAplicacao : IN
 		numeric piCdProcesso : IN
 		numeric piTpConf : IN
 		numeric piCdConf : IN
@@ -1613,13 +1613,13 @@ entry getInfTecConf
 	putitem/id viParams, "TP_CONF" , piTpConf
 	putitem/id viParams, "CD_CONF", piCdConf
 	activate "PCPSVCO047".buscarDadosConf(viParams, voParams, $xCdErro$, $xCtxErro$)
-	if ($procerror)       
+	if ($procerror)
 		$instancehandle-&gt;SetStatus(&lt;STS_ERRO&gt;, $procerror, $procerrorcontext, "")
 		$status = -1
 		return("")
 	elseif ($status &lt; 0)
 		return("")
-	endif 
+	endif
 
 	return($replace($item("DS_CAMPO", voParams), 1, ",", ".", -1))
 end ;getInfTecConf
@@ -1658,25 +1658,25 @@ entry getDadosIntegracao
 	returns string
 	params
 		string piCdProduto : IN
-		numeric piCdAplicacao : IN	
+		numeric piCdAplicacao : IN
 		numeric piCdCampoInt : IN
 	endparams
 	variables
 		string viParams, voParams
 	endvariables
-	
+
 	viParams = ""
 	putitem/id viParams, "CD_CAMPOINT", piCdCampoInt
 	putitem/id viParams, "CD_PRODUTO", piCdProduto
 	putitem/id viParams, "CD_APLICACAO", piCdAplicacao
 	activate "PCPSVCO047".buscarDadosIntegracao(viParams, voParams, $xCdErro$, $xCtxErro$)
-	if ($procerror)       
+	if ($procerror)
 		$instancehandle-&gt;SetStatus(&lt;STS_ERRO&gt;, $procerror, $procerrorcontext, "")
 		$status = -1
 		return("")
 	elseif ($status &lt; 0)
 		return("")
-	endif 		
+	endif
 
 	return($replace($item("DS_CAMPO", voParams), 1, ",", ".", -1))
 end ;getDadosIntegracao
@@ -1743,7 +1743,7 @@ entry getNrNovaPartida
 		handle vHdInstance
 	endvariables
 
-	repeat 
+	repeat
 		newinstance "GERSVCO001", vHdInstance, "TRANSACTION=TRUE"
 		vHdInstance-&gt;GetNumSeqEmp($$gParamGlb, piCdEmpresa, "CDF_PARTIDA", "NR_PARTIDA", 999999999, vNrPartida, $xCdErro$, $xCtxErro$)
 		if ($procerror)
@@ -1751,7 +1751,7 @@ entry getNrNovaPartida
 			return("")
 		elseif ($status &lt; 0)
 			return ("")
-		endif	
+		endif
 	until (getFieldData("NR_PARTIDA", "CDF_PARTIDASVC", "CD_EMPRESA=%%piCdEmpresa&uSEP;NR_PARTIDA=%%vNrPartida") = "")
 
 	return(vNrPartida)
@@ -1789,7 +1789,7 @@ entry getNrSeqItemPartida
 
 	selectdb max(NR_SEQUENCIA) from "CDF_PARTIDAISVC" u_where CD_EMPRESA.CDF_PARTIDAISVC = piCdEmpresa &amp; NR_PARTIDA.CDF_PARTIDAISVC = piNrPartida to vNrSequencia
 	vNrSequencia += 1
-	
+
 	return(vNrSequencia)
 end ;getNrSeqItemPartida
 
@@ -1994,7 +1994,7 @@ entry getQtAlocadaPartidaCone
 	variables
 		numeric vQtAlocada
 	endvariables
-	
+
 	$qtConePartidaAlocada$ = ""
 	$inConePartidaAlocada$ = &lt;TRUE&gt;
 
@@ -2066,7 +2066,7 @@ entry inValidarProcessoMaquinaPartida
 		string vDsParams, viParams, voParams, vDsRegProcesso
 		numeric vCdSeqMaq
 	endvariables
-	
+
 	vDsParams = ""
 	putitem/id vDsParams, "CD_EMPRESA", $item("CD_EMPOP", piParams)
 	putitem/id vDsParams, "NR_CICLO", $item("NR_CICLO", piParams)
@@ -2128,7 +2128,7 @@ entry inVerificarOrdemAnterior
 	NR_ORDEM.F_CDF_PARTIDASVC/init = "&uLT; %%piNrOrdem &amp; &uNOT;&uEQ;"
 	if (piInIniciar)
 		TP_SITUACAO.F_CDF_PARTIDASVC/init = 0 ;- Aguardando
-	else 
+	else
 		;--&gt; MNSANTOS - Prj 253/229 - 25/09/2018
 		if(vQtPartida &gt; 1)
 			return(1)
@@ -2149,7 +2149,7 @@ entry inVerificarOrdemAnterior
 			vDsTexto = $item(vDsTexto, $valrep(TP_SITUACAO.F_CDF_PARTIDASVC))
 			poParams = "%%poParams   Situação..: %%vDsTexto%%^"
 			vDsTexto = getFieldData("DS_MAQUINA", "CDF_MAQSVC", "CD_MAQUINA=%%CD_MAQUINA.F_CDF_PARTIDASVC")
-			poParams = "%%poParams   Máquina...: %%CD_MAQUINA.F_CDF_PARTIDASVC - %%vDsTexto%%^%%^"		
+			poParams = "%%poParams   Máquina...: %%CD_MAQUINA.F_CDF_PARTIDASVC - %%vDsTexto%%^%%^"
 			setocc "F_CDF_PARTIDASVC", $curocc("F_CDF_PARTIDASVC") + 1
 		endwhile
 		if (poParams != "")
@@ -2175,7 +2175,7 @@ entry inOpDiferente
 	variables
 		string vDsField
 	endvariables
-	
+
 	vDsField = "CD_EMPOP.%%piDsEntity"
 	if (@vDsField != $next(vDsField))
 		return(1)
@@ -2398,7 +2398,7 @@ entry apontarQtProduzida
 		if ($procerror)
 			$instancehandle-&gt;SetStatus(&lt;STS_ERRO&gt;, $procerror, $procerrorcontext, "")
 			return(-1)
-		elseif ($status &lt; 0)    
+		elseif ($status &lt; 0)
 			return(-1)
 		endif
 	endif
@@ -2435,7 +2435,7 @@ entry inValidarEmissao
 		return(1)
 	endif
 
-	vQtVolume = piQtVolume[round, 3] ;&lt;-- Cris - DVAIND 1718 Prj-&gt;253-388 10/12/2018 --&gt;	
+	vQtVolume = piQtVolume[round, 3] ;&lt;-- Cris - DVAIND 1718 Prj-&gt;253-388 10/12/2018 --&gt;
 
 	vQtAux = getFieldData("QT_VOLUMEMIN", "CDF_GMAQBENSVC", "CD_SEQMAQ=%%piCdSeqMaq")
 	;if (piQtVolume &lt; vQtAux &amp; vQtAux &gt; 0)
@@ -2466,7 +2466,7 @@ entry inValidarEmissao
 	if (vQtRelBanho &lt; vQtAux &amp; vQtAux &gt; 0 &amp; !piInSemItem)
 		$instancehandle-&gt;SetStatus(&lt;STS_ERRO&gt;, "MSG41470", "DESCRICAO=Relação de banho da emissão está abaixo do mínimo configurado para a máquina!", "ADICIONAL=Operação-&gt;CDFSVCO038.inValidarEmissao")
 		return(0)
-	endif	
+	endif
 	vQtAux = getFieldData("QT_RELBANHOMAX", "CDF_GMAQBENSVC", "CD_SEQMAQ=%%piCdSeqMaq")
 	if (vQtRelBanho &gt; vQtAux &amp; vQtAux &gt; 0 &amp; !piInSemItem)
 		$instancehandle-&gt;SetStatus(&lt;STS_ERRO&gt;, "MSG41471", "DESCRICAO=Relação de banho da emissão está acima do máximo configurado para a máquina!", "ADICIONAL=Operação-&gt;CDFSVCO038.inValidarEmissao")
@@ -2540,7 +2540,7 @@ entry calcularConsumoProduto
 			delitem vDsLstFor, 1
 		endwhile
 	endif
-	
+
 	;&lt;-- DSantos Prj-&gt;217-641 26/09/2017 - Adicionado a condição -
 	if ($item("IN_RECEITAPARTIDA", piParams) != &lt;TRUE&gt;)
 		vQtConsumoUn = calcularCompensacaoProduto($item("CD_PRODUTO", piParams), $item("CD_MAQUINA", piParams), vQtPeso, vQtVolume, vQtConsumoUn, &lt;TRUE&gt;, $item("CD_RECEITA", piParams)) ;&lt;-- DSantos Prj-&gt;217-511 02/06/2017 --&gt;
@@ -2618,7 +2618,7 @@ entry getNrEmissao
 		elseif ($status &lt; 0)
 			return("")
 		endif
-		
+
 		if (getFieldData("CD_EMPRESA", "TEX_RECEMISSASVC", "CD_EMPRESA=%%$item("CD_EMPRESA", $$gParamGlb)&uSEP;NR_EMISSAO=%%vNrEmissao") = "")
 			return(vNrEmissao)
 		endif
@@ -2740,7 +2740,7 @@ end ;getQtRelBanhoReceita
 ;--------------------------
 entry calcularVolumeEmissao
 	;-----------------------
-	returns numeric 
+	returns numeric
 	params
 		numeric piQtVolume : IN
 		numeric piQtPeso : IN
@@ -2865,12 +2865,12 @@ entry inProcessoDisponivel
 	variables
 		numeric vCdProcessoAnt, vQtRestante, vQtPartida, vCdSeqMaq
 	endvariables
-	
+
 	if (!inValidarParametro("CD_EMPRESA&uSEP;NR_CICLO&uSEP;NR_OP&uSEP;CD_PRODUTO&uSEP;CD_MAQUINA", piParams, "inProcessoDisponivel"))
 		;- Caso não receber os parâmetros corretamente o processo fica indisponível.
 		return(0)
 	endif
-	
+
 	if (getMaqConfPar("TP_PARTIDA", $item("CD_MAQUINA", piParams)) = 2)
 		;- Quando a máquina for contínua sem quantidade todos os processos são disponiveis
 		return(1)
@@ -2924,7 +2924,7 @@ entry inProcessoDisponivel
 
 		vQtRestante -= vQtPartida
 	endif
-	
+
 	if (vQtRestante &gt; 0)
 		return(0)
 	endif
@@ -2963,9 +2963,9 @@ entry getProcessoOp
 					$handleEntity$-&gt;getRegistro(vDsRegistro)
 				endif
 			endif
-		endif		
+		endif
 		if (piInProcRec &amp; $item("CD_RECEITA", vDsRegistro) = "")
-			return("")			
+			return("")
 		endif
 		putitem/id vDsRegistro, "DS_LSTTPUTILIZACAO", getLstTpUtilizacaoOpi(vDsRegistro) ;--&gt; MNSANTOS - Prj 217/305 - 25/07/2016
 	endif
@@ -3072,7 +3072,7 @@ entry getRateioOpPartida
 		numeric vPrRateio, vQtPartida, vQtOpI
 		string vDsCondicao
 	endvariables
-	
+
 	if($item("NR_PARTIDA", piParams) = "")
 		return(100)
 	endif
@@ -3083,7 +3083,7 @@ entry getRateioOpPartida
 	putitem/id vDsCondicao, "NR_OP", $item("NR_OP", piDsOpI)
 	putitem/id vDsCondicao, "CD_PRODUTO", $item("CD_PRODUTO", piDsOpI)
 	vQtOpI = getFieldData("QT_REAL", "PCP_OPISVC", vDsCondicao)
-	
+
 	vQtPartida = $item("QT_REFERENCIA", piDsOpI)
 
 	vPrRateio = (vQtPartida * 100) / vQtOpi
@@ -3137,7 +3137,7 @@ end ;getLstTpUtilizacaoOpi
 entry inOpiPartidaDiferente
 	;-----------------------
 	;--&gt; MNSANTOS - Prj 217/322 - 01/08/2016
-	returns boolean	
+	returns boolean
 
 	if(CD_EMPOP.CDF_PARTIDAISVC != $next(CD_EMPOP.CDF_PARTIDAISVC))
 		return(&lt;TRUE&gt;)
@@ -3174,7 +3174,7 @@ entry inClassificacaoProduto
 	vDsLstClas = ""
 	putitem vDsLstClas, -1, piCdTipoClas
 	putitem vDsLstClas, -1, piCdClas
-	
+
 	viParams = ""
 	putitem/id viParams, "CD_PRODUTO", piCdProduto
 	putitem/id viParams, "DS_LSTCLAS", vDsLstClas
@@ -3203,7 +3203,7 @@ entry montarFaixaConsumoProduto
 	endvariables
 
 	if ($empty("CDF_PRDFORPERSVC"))
-		return("")	
+		return("")
 	endif
 
 	setocc "CDF_PRDFORPERSVC", 1
@@ -3345,7 +3345,7 @@ entry getQtConeItemOp
 	putitem/id vDsCondicao, "CD_PRODUTOPA", $item("CD_PRODUTO", piParams)
 	$handleConsulta$-&gt;consultar("PCP_OPMPISVC", vDsCondicao)
 	if ($status &lt; 0)
-		;&lt;-- DSantos Prj-&gt;253-018 11/04/2018 --&gt;		
+		;&lt;-- DSantos Prj-&gt;253-018 11/04/2018 --&gt;
 		if ($item("NR_LOTE", piParams) != "" &amp; $item("NR_ITEM", piParams))
 			newinstance "ENTSVCO001", vHandleReprocesso
 			;--&gt; MNSANTOS - Prj 253/249 - 08/10/2018
@@ -3380,7 +3380,7 @@ entry getQtConeItemOp
 		; DSantos --&gt;
 	endif
 
-	if (vInRegistro)		
+	if (vInRegistro)
 		putitem/id vDsCondicao, "CD_PRODUTO", $item("CD_PRODUTOPA", vDsCondicao) ;--&gt; MNSANTOS - Prj 253/249 - 08/10/2018
 		delitem/id vDsCondicao, "CD_PRODUTOPA"
 
@@ -3419,7 +3419,7 @@ entry getQtConeItemOp
 		endwhile
 	endif
 
-	if (vQtCone &gt; 0 &amp; vTpCalculo = 2) 
+	if (vQtCone &gt; 0 &amp; vTpCalculo = 2)
 		vQtReal = getFieldData("QT_REAL", "PCP_OPISVC", vDsCondicao)
 		vQtCone = ((piQtItem * vQtCone) / vQtReal)
 		vQtCone = vQtCone[round]
@@ -3440,7 +3440,7 @@ entry getCampoConfFasePadrao
 		numeric piCdCampo : IN
 	endparams
 	variables
-		string viParams, voParams	
+		string viParams, voParams
 	endvariables
 
 	viParams = ""
@@ -3463,7 +3463,7 @@ entry getCampoConfFasePadrao
 	elseif ($status &lt; 0)
 		return("")
 	endif
-	
+
 	return($replace($item("DS_CAMPO", voParams), 1, ",", ".", -1))
 end ;getCampoConfFasePadrao
 
@@ -3525,7 +3525,7 @@ entry calcularCompensacaoProduto
 					if ($item("PR_VARIACAOMAIOR", vDsRegistro) != "" | $item("PR_VARIACAOMENOR", vDsRegistro) != "")
 						vPrCorante = getPrCoranteReceita(piCdProduto, piCdMaquina, piQtPeso, piQtVolume, piQtConsumo, piInLog, piCdReceita)
 						if (piQtConsumo &gt; vPrCorante)
-							vPrVariacao = $item("PR_VARIACAOMAIOR", vDsRegistro) 
+							vPrVariacao = $item("PR_VARIACAOMAIOR", vDsRegistro)
 						elseif (piQtConsumo &lt; vPrCorante)
 							vPrVariacao = $item("PR_VARIACAOMENOR", vDsRegistro)
 						else
@@ -3543,7 +3543,7 @@ entry calcularCompensacaoProduto
 				endif
 				;&lt;-- LOMoreira Prj-&gt;217-586 31/07/2017 --&gt;
 			endif
-		endif		
+		endif
 	endif
 
 	$status = 0
@@ -3573,7 +3573,7 @@ entry getMaquinaEmissao
 	if (vCdMaquina = "")
 		vDsCondicao = ""
 		putitem/id vDsCondicao, "CD_SEQMAQ", $item("CD_SEQMAQ", piParams)
- 		vCdMaquina = getFieldData("CD_MAQUINA", "CDF_MAQGMAQSVC", vDsCondicao)	
+ 		vCdMaquina = getFieldData("CD_MAQUINA", "CDF_MAQGMAQSVC", vDsCondicao)
 	endif
 
 	return(vCdMaquina)
@@ -3714,7 +3714,7 @@ entry getQtAlocarOp
 								return("")
 							endif
 							if (vQtItem &gt; 0)
-								vInItem = &lt;TRUE&gt;		
+								vInItem = &lt;TRUE&gt;
 								putitem/id vDsParams, "QT_PARTIDA", vQtItem
 								putitem/id vDsParams, "TP_ORIGEM", 2 ;-Item Lote O.P.
 								putitem/id vDsParams, "QT_ITEM", vQtItemOri
@@ -3733,7 +3733,7 @@ entry getQtAlocarOp
 				if ($status &lt; 0)
 					return("")
 				endif
-				if (vQtItem &gt; 0)				
+				if (vQtItem &gt; 0)
 					delitem/id vDsParams, "CD_EMPRESA"
 					putitem/id vDsParams, "CD_EMPOP", CD_EMPRESA.PCP_OPISVC
 					putitem/id vDsParams, "QT_PARTIDA", vQtItem
@@ -3828,7 +3828,7 @@ entry inValidarLocalizacaoItem
 			vDsEntity = "CDF_LOCOPLOTESVC"
 		else
 			vDsEntity = "CDF_LOCOPSVC"
-		endif						
+		endif
 		$handleEntity$-&gt;consultar(vDsEntity, vDsCondicao)
 		if ($status &lt; 0)
 			return(&lt;FALSE&gt;)
@@ -3932,7 +3932,7 @@ entry getQtDesmembradaItemLote
 		putitem/id piDsParams, "CD_PRODUTO", $item("CD_PRODUTODES", vDsRegistro)
 		putitem/id piDsParams, "NR_LOTE", $item("NR_LOTEDES", vDsRegistro)
 		putitem/id piDsParams, "NR_ITEM", $item("NR_ITEMDES", vDsRegistro)
-		vQtDesmembrada = getFieldData("QT_LOTE", "PCP_OPILOTEISVC", piDsParams) 
+		vQtDesmembrada = getFieldData("QT_LOTE", "PCP_OPILOTEISVC", piDsParams)
 		vQtDesmembrada += getQtDesmembradaItemLote(piDsParams)
 	endif
 
@@ -3942,7 +3942,7 @@ end ;getQtDesmembradaItemLote
 ;------------------------
 entry getPrCoranteReceita
 	;---------------------
-	;&lt;-- LOMoreira Prj-&gt;217-586 31/07/2017 --&gt;	
+	;&lt;-- LOMoreira Prj-&gt;217-586 31/07/2017 --&gt;
 	returns numeric
 	params
 		numeric piCdProduto : IN
@@ -3957,7 +3957,7 @@ entry getPrCoranteReceita
 		numeric vQtConsumo, vPrCorante
 		string vDsCondicao, vDsRegistro
 	endvariables
-	
+
 	vDsCondicao = ""
 	putitem/id vDsCondicao, "CD_RECEITA", piCdReceita
 	putitem/id vDsCondicao, "CD_PRODUTO", "&uNOT;&uEQ;%%piCdProduto"
@@ -4089,7 +4089,7 @@ entry getCampoConfPartidaRec
 		numeric piCdCampo : IN
 	endparams
 	variables
-		string viParams, voParams	
+		string viParams, voParams
 	endvariables
 
 	viParams = ""
@@ -4114,7 +4114,7 @@ entry getCampoConfPartidaRec
 	elseif ($status &lt; 0)
 		return("")
 	endif
-	
+
 	return($replace($item("DS_CAMPO", voParams), 1, ",", ".", -1))
 end ;getCampoConfEmissao
 
@@ -4177,8 +4177,8 @@ entry getDsLstTipoUtilizacao
 				putitem/id vDsRegTpUtilizacao, "CD_TPUTILIZACAO", $item("CD_TPUTILIZACAO", vDsRegistro)
 				putitem/id vDsLstTpUtilizacao, vDsId, vDsRegTpUtilizacao
 				$handleEntity$-&gt;next()
-			endwhile		
-		endif	
+			endwhile
+		endif
 	else
 		vDsLstTpUtilizacao = $item("DS_LSTTPUTILIZACAO", piDsRegProc) ;--&gt;ROS--&gt;220/2849--&gt;20/02/2018
 	endif
@@ -4326,7 +4326,7 @@ entry getMpPrincipal
 ;			vDsCondicao = ""
 ;			putitem/id vDsCondicao, "CD_EMPRESA", $item("CD_EMPRESA", piParams)
 ;			putitem/id vDsCondicao, "NR_CICLO", $item("NR_CICLO", piParams)
-;			putitem/id vDsCondicao, "NR_OP", $item("NR_OP", piParams)	
+;			putitem/id vDsCondicao, "NR_OP", $item("NR_OP", piParams)
 ;			putitem/id vDsCondicao, "CD_PRODUTOPA", $item("CD_PRODUTO", piParams)
 ;			putitem/id vDsCondicao, "CD_PRODUTOMP", $item("CD_PRODUTOMP", getRegistro($handleEntity$))
 ;			$handleEntity$-&gt;consultar("PCP_OPMPISVC", vDsCondicao)
@@ -4350,7 +4350,7 @@ entry getMpPrincipal
 ;							vDsCondicao = ""
 ;							putitem/id vDsCondicao, "CD_EMPRESA", $item("CD_EMPRESA", piParams)
 ;							putitem/id vDsCondicao, "NR_CICLO", $item("NR_CICLO", piParams)
-;							putitem/id vDsCondicao, "NR_OP", $item("NR_OP", piParams)	
+;							putitem/id vDsCondicao, "NR_OP", $item("NR_OP", piParams)
 ;							putitem/id vDsCondicao, "CD_PRODUTOPA", $item("CD_PRODUTO", piParams)
 ;							putitem/id vDsCondicao, "CD_PRODUTOMP", $item("CD_PRODUTO", vDsRegMp)
 ;							$handleEntity$-&gt;consultar("PCP_OPMPISVC", vDsCondicao)
@@ -4435,7 +4435,7 @@ entry prCalcularEficienciaPartida
 	vQtTempoReal     = $item("QT_TEMPOPRODUTIVO", voParams)
 	vQtEficiencia 		= (vQtTempoEstimado * 100) / vQtTempoReal
 	if(vQtEficiencia &gt;= 1000)
-		vQtEficiencia = 999.99	
+		vQtEficiencia = 999.99
 	endif
 
 	return(vQtEficiencia)
@@ -4458,14 +4458,14 @@ entry dsBuscarPadraoTecnicoMaquina
 	variables
 		string viParams, voParams
 	endvariables
-	
+
 	viParams = ""
-	putitem/id viParams, "CD_PRODUTO", piCdProduto 
-	putitem/id viParams, "CD_MAQUINA", piCdMaquina 
-	putitem/id viParams, "CD_TIPOCAMPO", piCdTipoCampo 
-	putitem/id viParams, "CD_PROCESSO", piCdProcesso 
-	putitem/id viParams, "CD_EMPPARTIDA", piCdEmpPartida 
-	putitem/id viparams, "NR_PARTIDA", piNrPartida 
+	putitem/id viParams, "CD_PRODUTO", piCdProduto
+	putitem/id viParams, "CD_MAQUINA", piCdMaquina
+	putitem/id viParams, "CD_TIPOCAMPO", piCdTipoCampo
+	putitem/id viParams, "CD_PROCESSO", piCdProcesso
+	putitem/id viParams, "CD_EMPPARTIDA", piCdEmpPartida
+	putitem/id viparams, "NR_PARTIDA", piNrPartida
 	activate "CDFSVCO029".buscarCamposPadraoTecnico(viParams, voParams, $xCdErro$, $xCtxErro$)
 	if ($procerror)
 		$instancehandle-&gt;SetStatus(&lt;STS_ERRO&gt;, $procerror, $procerrorcontext, "")
@@ -4485,7 +4485,7 @@ entry inVerificarRetiradaEmissao
 	variables
 		string vDsCondicao, vDsRegistro
 	endvariables
-	
+
 	clear/e "CDF_PARTIDAEMISSAOSVC"
 	;-&gt;HSGARCIA Proj 220/3852 DVAIND-2253 20/12/18
 	TP_SITUACAO.CDF_PARTIDAEMISSAOSVC/init = 1
@@ -4510,9 +4510,9 @@ entry inVerificarRetiradaEmissao
 						endif
 					endif
 					$handleEntity$-&gt;next()
-				endwhile			
+				endwhile
 			endif
-			setocc "CDF_PARTIDAEMISSAOSVC", $curocc("CDF_PARTIDAEMISSAOSVC") + 1			
+			setocc "CDF_PARTIDAEMISSAOSVC", $curocc("CDF_PARTIDAEMISSAOSVC") + 1
 		endwhile
 	endif
 
@@ -4531,7 +4531,7 @@ entry inValidarListaClasProduto
 	variables
 		string viParams, voParams
 	endvariables
-	
+
 	if(piDsLstClas = "")
 		return(&lt;FALSE&gt;)
 	endif
@@ -4547,7 +4547,7 @@ entry inValidarListaClasProduto
 		return(&lt;FALSE&gt;)
 	endif
 
-	return(&lt;TRUE&gt;)	
+	return(&lt;TRUE&gt;)
 end ;inValidarListaClasProduto
 
 ;IAS - PRJ/TAR - 253/0276 - 15/10/2018
@@ -4641,7 +4641,7 @@ entry dsBuscarReceita
 						vDsReceita = getFieldData("CD_RECEITA", "TEX_RECEMISSASVC", "CD_EMPRESA=%%CD_EMPRESA.V_CDF_PARTIDASVC&uSEP;NR_EMISSAO=%%vNrEmissao&uSEP;TP_SITUACAO=1")
 						if ($item(vDsReceita, vDsLstReceitas) = "")
 							putitem vDsLstreceitas, -1, vDsReceita
-						endif				
+						endif
 					endif
 					setocc "CDF_PARTIDAEMISSAOSVC", $curocc("CDF_PARTIDAEMISSAOSVC") + 1
 				endwhile
@@ -4794,7 +4794,7 @@ public operation calcularTempoPartida
 	if (!inValidarParametro("CD_EMPRESA&uSEP;NR_PARTIDA", piParams, "calcularTempoPartida"))
 		return(-1)
 	endif
-	
+
 	poParams = $item("%%$item("CD_EMPRESA", piParams)%%$item("NR_PARTIDA", piParams)", $dsTempopartida$)
 	if (poParams != "")
 		return(0)
@@ -4856,7 +4856,7 @@ public operation calcularTempoPartida
 		vQtTempoInterrupcao = $item("QT_MININTERRUPCAO", vDsLstTempo)
 		vQtTempoEstimadoInte = $item("QT_TEMPOESTIMADOINTE", vDsLstTempo)
 	case 2 ;- Processo
-		;- Considera apenas o tempo definido no cadastro do processo.		
+		;- Considera apenas o tempo definido no cadastro do processo.
 		vQtTempoPartida = vQtTempoProcesso
 		vDsLstTempo = getTempoPartida()
 		vQtTempoProdutivo = $item("QT_MINPRODUTIVO", vDsLstTempo)
@@ -4895,14 +4895,14 @@ public operation calcularTempoPartida
 					vQtEstimada = getFieldData("QT_ESTIMADA", "PCP_OPISVC", vDsParams)
 					vQtTotalEstimada += vQtEstimada
 
-					vQtPendente = vQtEstimada - vQtProduzida 
+					vQtPendente = vQtEstimada - vQtProduzida
 					if (vQtPendente &gt; 0)
 						;- Divide a quantidade pendente pela quantidade de partida do item pois a O.P. pode estar alocado em mais de uma máquina.
 						vQtPendente = vQtPendente / vQtPartida
 					endif
 					vQtTotalPendente += vQtPendente
 
-					setocc "CDF_PARTIDAISVC", $curocc("CDF_PARTIDAISVC") + 1 
+					setocc "CDF_PARTIDAISVC", $curocc("CDF_PARTIDAISVC") + 1
 				endwhile
 
 				;- Divide a quantidade pelo número de tempo, que indica quanto é produzido por minuto para o processo, dessa forma temos o tempo em minutos.
@@ -4932,12 +4932,12 @@ public operation calcularTempoPartida
 				; DSantos --&gt;
 				vQtTempoPartida += QT_PARTIDA.CDF_PARTIDAISVC / vQtVelocidade
 				setocc "CDF_PARTIDAISVC", $curocc("CDF_PARTIDAISVC") + 1
-			endwhile			
+			endwhile
 			vDsLstTempo = getTempoPartida()
 			vQtTempoProdutivo = $item("QT_MINPRODUTIVO", vDsLstTempo)
 			vQtTempoInterrupcao = $item("QT_MININTERRUPCAO", vDsLstTempo)
 			vQtTempoEstimadoInte = $item("QT_TEMPOESTIMADOINTE", vDsLstTempo)
-		endif			
+		endif
 	endselectcase
 
 	vInTempoSetup = $item("IN_TEMPOSETUP", piParams)
@@ -4945,7 +4945,7 @@ public operation calcularTempoPartida
 		;- Quando não receber o indicador de setup considera a configuração da máquina
 		vInTempoSetup = getMaqConfPar("IN_TEMPOSETUP", CD_MAQUINA.CDF_PARTIDASVC)
 	endif
-	
+
 	if($empty("CDF_PARTIDAISVC"))
 		;- Quando a partida não possuir item não considera tempo de setup
 		vInTempoSetup = &lt;FALSE&gt;
@@ -5069,10 +5069,10 @@ public operation buscarReceitaPartida
 			if ($status &gt;= 0)
 				$cdEmpresa$ = $item("CD_EMPRESA", getRegistro($handleEntity$))
 				putitem/id poParams, "CD_RECEITA", $concat("RP", "%%$cdEmpresa$", $item("NR_PARTIDA", getRegistro($handleEntity$)))
-				putitem/id poParams, "IN_RECEITAIGUAL", &lt;TRUE&gt;				
+				putitem/id poParams, "IN_RECEITAIGUAL", &lt;TRUE&gt;
 				return(0)
 			endif
-			;&lt;-- LOMoreira Prj-&gt;217-558 --&gt;	
+			;&lt;-- LOMoreira Prj-&gt;217-558 --&gt;
 
 		if (!$empty("CDF_PARTIDAISVC"))
 			vInTpUtilizacaoIgual = &lt;TRUE&gt;
@@ -5092,11 +5092,11 @@ public operation buscarReceitaPartida
 					delitem/id poParams, "CD_RECEITA"
 					delitem/id poParams, "CD_TPUTILIZACAO"
 					putitem/id poParams, "IN_RECEITAIGUAL", &lt;FALSE&gt;
-					return(0)					
+					return(0)
 				endif
 				if(vInTpUtilizacaoIgual)
 					if($item("CD_TPUTILIZACAO", poParams) = "")
-						putitem/id poParams, "CD_TPUTILIZACAO", $item("CD_TPUTILIZACAO", vDsRegistro)	
+						putitem/id poParams, "CD_TPUTILIZACAO", $item("CD_TPUTILIZACAO", vDsRegistro)
 					elseif($item("CD_TPUTILIZACAO", poParams) != $item("CD_TPUTILIZACAO", vDsRegistro))
 						vInTpUtilizacaoIgual = &lt;FALSE&gt;
 					endif
@@ -5179,7 +5179,7 @@ public operation buscarOrigemPartidaMaquina
 					selectdb sum(QT_PARTIDA) from "V_CDF_PARTIDASVC" %\
 						u_where CD_EMPRESA.V_CDF_PARTIDASVC = CD_EMPRESA.CDF_PARTIDASVC %\
 						&amp; NR_PARTIDA.V_CDF_PARTIDASVC = NR_PARTIDA.CDF_PARTIDASVC to vQtPartida
-					putitem/id vDsRegistro, "QT_PARTIDA", vQtPartida					
+					putitem/id vDsRegistro, "QT_PARTIDA", vQtPartida
 					poParams = adicionarRegistroLista(vDsRegistro, poParams, "DS_LST_PARTIDA_ALOCAR")
 				endif
 			endif
@@ -5192,7 +5192,7 @@ public operation buscarOrigemPartidaMaquina
 	if (vInConsulta | vDsLstOp = "")
 		return(0)
 	endif
-	
+
 	vTpItemMaq = getMaqConfPar("TP_ITEM", vCdMaquina)
 
 	vNrRegTotal = $itemcount(vDsLstOp)
@@ -5287,7 +5287,7 @@ public operation buscarOrigemPartidaMaquina
 									endwhile
 									setocc "PCP_OPILOTECSVC", $curocc("PCP_OPILOTECSVC") + 1
 								endwhile
-							;--&lt; MNSANTOS								
+							;--&lt; MNSANTOS
 							;&lt;-- DSantos Prj-&gt;217-539 19/06/2017
 							elseif (vTpItemMaq = 3)
 								vDsLstProcOp = addItemLstProcOp($item("CD_PROCESSO", $itemnr(1, vDsLstProc)), $item("CD_RECEITA", $itemnr(1, vDsLstProc)), vDsLstProcOp)
@@ -5295,7 +5295,7 @@ public operation buscarOrigemPartidaMaquina
 							; DSantos --&gt;
 						elseif (vDsMotivo != "");--&gt; MNSANTOS - Prj 217/246 - 18/05/2016
 							putitem/id vDsRegistro, "DS_MOTIVO", vDsMotivo
-							$lstItensDescartados$ = adicionarRegistroLista(vDsRegistro, $lstItensDescartados$, "DS_LSTITEMOPPROC")							
+							$lstItensDescartados$ = adicionarRegistroLista(vDsRegistro, $lstItensDescartados$, "DS_LSTITEMOPPROC")
 							;--&lt; MNSANTOS
 						endif
 						vCdProcessoAnterior = $item("CD_PROCESSO", $itemnr(1, vDsLstProc)) ;&lt;-- DSantos Prj-&gt;217-255 23/05/2016 --&gt;
@@ -5485,9 +5485,9 @@ public operation alocarItemPartida
 					return(-1)
 				elseif ($status &lt; 0)
 					return(-1)
-				endif	
+				endif
 			endif
-		endif	
+		endif
 
 		viParams = ""
 		putitem/id viParams, "DS_LSTPARTIDA", vDsLstPartida
@@ -5498,9 +5498,9 @@ public operation alocarItemPartida
 			return(-1)
 		elseif ($status &lt; 0)
 			return(-1)
-		endif	
-		
-		;-&gt;HSGARCIA Proj 217/610 09/08/2017		
+		endif
+
+		;-&gt;HSGARCIA Proj 217/610 09/08/2017
 		if($tpIntAcabamentoTextil$ &gt; 0 &amp; getInfTecConf("", vCdMaquina, "", "", 4, 42) != "") ;-&gt;HSGARCIA Proj 217/664 03/11/17 ---- ;-&gt;HSGARCIA Proj 253/378 DVAIND-1940 05/12/2018
 			viParams = ""
 			putitem/id viParams, "CD_EMPRESA", $item("CD_EMPRESA", $itemnr(1, vDsLstPartida))
@@ -5512,7 +5512,7 @@ public operation alocarItemPartida
 			elseif ($status &lt; 0)
 				$instancehandle-&gt;SetStatus(&lt;STS_ERRO&gt;, $xCdErro$, $xCtxErro$, "")
 				return(-1)
-			endif		
+			endif
 		endif
 		;&lt;-
 		return(0)
@@ -5639,7 +5639,7 @@ public operation alocarItemPartida
 			endif
 			putitem vDsLstPartida, -1, voParams
 			vCdEmpPartida = $item("CD_EMPRESA", voParams)
-			vNrPartida = $item("NR_PARTIDA", voParams)			
+			vNrPartida = $item("NR_PARTIDA", voParams)
 		endif
 
 		if (vTpPartida = 1 | vTpPartida = 3)
@@ -5666,7 +5666,7 @@ public operation alocarItemPartida
 					putitem vDsLstItemGravar, vNrItem, vDsRegistro
 					vNrItem += 1
 				endwhile
-			else				
+			else
 				if (vQtDisponivel &gt; 0)
 					if (vDsLstItem = "")
 						if (vQtPendente &gt; vQtDisponivel)
@@ -5734,11 +5734,11 @@ public operation alocarItemPartida
 			$instancehandle-&gt;removerEntidadeGerada("CDF_PARTIDASVC", vDsLstPartida)
 			return(-1)
 		endif
-		if ($instance$)	
+		if ($instance$)
 			$instance$-&gt;limparTempoPartida(CD_EMPRESA.CDF_PARTIDASVC, NR_PARTIDA.CDF_PARTIDASVC)
 		endif
 		vDsLstItemGravar = ""
-	
+
 		;--&gt; MNSANTOS - Prj 217/602 - 30/08/2017
 		$instancehandle-&gt;validarTipoSeguro(vCdEmpPartida, vNrPartida, vCdMaquina)
 		if ($procerror)
@@ -5770,7 +5770,7 @@ public operation alocarItemPartida
 			$instancehandle-&gt;removerEntidadeGerada("CDF_PARTIDACFGMAQSVC", vDsLstPartida) ;&lt;-- DSantos Prj-&gt;217-730 20/02/2018 --&gt;
 			$instancehandle-&gt;removerEntidadeGerada("CDF_PARTIDASVC", vDsLstPartida)
 			return(-1)
-		endif	
+		endif
 	endif
 
 	;-&gt;HSGARCIA Proj 217/610 09/08/2017
@@ -5813,7 +5813,7 @@ public operation buscarInfPartida
 		numeric vQtCone, vQtAux, vQtCapacidade, vQtPartida, vCdSeqGrupo, vCdProduto, vQtPartidaConv, vNrAgrupador
 		handle vHandleInstance
 	endvariables
-	
+
 	if (!inValidarParametro("CD_EMPRESA&uSEP;NR_PARTIDA", piParams, "buscarInfPartida"))
 		return(-1)
 	endif
@@ -5850,9 +5850,9 @@ public operation buscarInfPartida
 			activate "PCPSVCO034".buscarLoteCliOpComponente(viParams, voParams, $xCdErro$, $xCtxErro$)
 			if ($procerror)
 				$instancehandle-&gt;SetStatus(&lt;STS_ERRO&gt;, $procerror, $procerrorcontext, "")
-				return(-1)  
+				return(-1)
 			elseif ($status &lt; 0)
-				return(-1)  
+				return(-1)
 			endif
 			putitem/id vDsInfo, "DS_LOTECLI", $item("DS_LOTECLI", voParams)
 
@@ -5906,7 +5906,7 @@ public operation buscarInfPartida
 					vDsLstLocal = $concat(vDsLstLocal, "&uSEP;", getListFieldData("CD_LOCAL", "CDF_LOCOPLOTESVC", vDsCondicao))
 				else
 					vDsLstLocal = $concat(vDsLstLocal, "&uSEP;", getListFieldData("CD_LOCAL", "CDF_LOCOPSVC", vDsCondicao))
-				endif	
+				endif
 				; DSantos --&gt;
 
 				vQtPartida += QT_PARTIDA.CDF_PARTIDAISVC
@@ -5943,14 +5943,14 @@ public operation buscarInfPartida
 				else
 					putitem/id vDsInfo, "IN_QTMINIMA", &lt;TRUE&gt;
 				endif
-				
+
 				;&lt;-- DSantos Prj-&gt;217-730 22/02/2018
 				;vDsTexto = getInfTecConf(CD_PRODUTO.CDF_PARTIDAISVC, CD_MAQUINA.CDF_PARTIDASVC, "", CD_PROCESSO.CDF_PARTIDAPSVC, 2, 32)
 				vDsTexto = getDadosPadraoTecnico(32, CD_PRODUTO.CDF_PARTIDAISVC, CD_MAQUINA.CDF_PARTIDASVC, CD_PROCESSO.CDF_PARTIDAPSVC, CD_EMPRESA.CDF_PARTIDASVC, NR_PARTIDA.CDF_PARTIDASVC)
 				; DSantos --&gt;
 				if (vDsTexto != "")
 					vDsTexto = "%%vDsTexto %%$lowercase(getFieldData("CD_ESPECIE", "PRD_PRODUTOSVC", "CD_PRODUTO=%%CD_PRODUTO.CDF_PARTIDAISVC"))/min"
-					vDsTexto = $replace(vDsTexto, 1, ".", ",", -1)				
+					vDsTexto = $replace(vDsTexto, 1, ".", ",", -1)
 					putitem/id vDsInfo, "QT_VELOCIDADE", vDsTexto
 				endif
 
@@ -5983,9 +5983,9 @@ public operation buscarInfPartida
 		vHandleInstance-&gt;buscarReceitaPartida(viParams, voParams, $xCdErro$, $xCtxErro$)
 		if ($procerror)
 			$instancehandle-&gt;SetStatus(&lt;STS_ERRO&gt;, $procerror, $procerrorcontext, "")
-			return(-1)  
+			return(-1)
 		elseif ($status &lt; 0)
-			return(-1)  
+			return(-1)
 		endif
 		putitem/id vDsInfo, "CD_RECEITA", $item("CD_RECEITA", voParams)
 		putitem/id vDsInfo, "CD_PROCORGATEX", getProcOrgatex($item("CD_RECEITA", vDsInfo)) ;--&gt; MNSANTOS - 26/10/2017
@@ -6001,7 +6001,7 @@ public operation buscarInfPartida
 			$instance$-&gt;calcularTempoPartida(viParams, voParams, $xCdErro$, $xCtxErro$)
 			if ($procerror)
 				$instancehandle-&gt;SetStatus(&lt;STS_ERRO&gt;, $procerror, $procerrorcontext, "")
-				return(-1)  
+				return(-1)
 			elseif ($status &lt; 0)
 				return(-1)
 			endif
@@ -6067,7 +6067,7 @@ public operation buscarInfPartida
 					endif
 				endif
 			endif
-			if (vDsRegistro != "")		
+			if (vDsRegistro != "")
 				putitem/id vDsInfo, "CD_LOCALOP", $item("CD_LOCAL", vDsRegistro)
 				putitem/id vDsInfo, "DS_CORTEXTO", $item("DS_CORTEXTO", vDsRegistro)
 				putitem/id vDsInfo, "DS_CORFUNDO", $item("DS_CORFUNDO", vDsRegistro)
@@ -6088,7 +6088,7 @@ public operation buscarInfPartida
 					vDsConteudo = NR_PARTIDA.CDF_PARTIDASVC
 				case 2 ;Código da cor do produto da partida
 					vDsConteudo = vCdCor
-				case 3 ;Descrição da cor do produto da partida					
+				case 3 ;Descrição da cor do produto da partida
 					vDsConteudo = getFieldData("DS_COR", "PRD_CORSVC", "CD_COR=%%vCdCor")
 				case 4 ;4 - Progresso em percentual numérico
 					if ($item("TP_TIPO", vDsInfo) != 2)
@@ -6104,7 +6104,7 @@ public operation buscarInfPartida
 					if(vCdSeqGrupo != "")
 						vDsConteudo = getFieldData("DS_NIVEL", "PRD_GRUPOADICSVC", "CD_SEQGRUPO=%%vCdSeqGrupo")
 					endif
-				case 7 ;Descrição do último nível do grupo de produto da partida					
+				case 7 ;Descrição do último nível do grupo de produto da partida
 					if(vCdSeqGrupo != "")
 						vDsConteudo = getFieldData("DS_GRUPO", "PRD_GRUPOSVC", "CD_SEQ=%%vCdSeqGrupo")
 					endif
@@ -6149,7 +6149,7 @@ public operation buscarInfPartida
 				case 19 ;-- Número do agrupador ;&lt;-- LOMoreira Prj-&gt;200-1124 02/02/2018 --&gt;
 					vDsConteudo = $item("NR_AGRUPADOR", vDsInfo)
 				endselectcase
-				
+
 				if(vDsConteudo != "")
 					if($item("NR_LINHA", vDsRegistro) = 1)
 						vDsTexto = $item("DS_LINHA1", vDsInfo)
@@ -6161,20 +6161,20 @@ public operation buscarInfPartida
 					elseif($item("NR_LINHA", vDsRegistro) = 2)
 						vDsTexto = $item("DS_LINHA2", vDsInfo)
 						vDsTexto = "%%vDsTexto%%$item("DS_SEPARADOR", vDsRegistro)%%$item("DS_IDENTIFICADOR", vDsRegistro)%%vDsConteudo"
-						putitem/id vDsInfo, "DS_LINHA2", vDsTexto 
+						putitem/id vDsInfo, "DS_LINHA2", vDsTexto
 						if($item("TP_FONTE", vDsRegistro) != "")
 							putitem/id vDsInfo, "TP_FONTE2", $item("TP_FONTE", vDsRegistro)
 						endif
 					elseif($item("NR_LINHA", vDsRegistro) = 3)
 						vDsTexto = $item("DS_LINHA3", vDsInfo)
 						vDsTexto = "%%vDsTexto%%$item("DS_SEPARADOR", vDsRegistro)%%$item("DS_IDENTIFICADOR", vDsRegistro)%%vDsConteudo"
-						putitem/id vDsInfo, "DS_LINHA3", vDsTexto 
+						putitem/id vDsInfo, "DS_LINHA3", vDsTexto
 						if($item("TP_FONTE", vDsRegistro) != "")
 							putitem/id vDsInfo, "TP_FONTE3", $item("TP_FONTE", vDsRegistro)
 						endif
 					endif
 				endif
-				
+
 				delitem vDsLstConfLinha, 1
 			endwhile
 			putitem/id vDsInfo, "TP_PARTIDA", TP_TIPO.CDF_PARTIDASVC
@@ -6236,7 +6236,7 @@ public operation gerarPartida
 			$instancehandle-&gt;SetStatus(&lt;STS_ERRO&gt;, "", "DESCRICAO=Tipo de cálculo do processo diferente do tipo de finalidade do grupo de máquina!", "ADICIONAL=Operação-&gt;CDFSVCO038.gerarPartida")
 			return(-1)
 		endif
-	
+
 		if (vTpTipo = "")
 			vTpTipo = getMaqConfPar("TP_PARTIDA", $item("CD_MAQUINA", piParams))
 			if (vTpTipo &gt; 1)
@@ -6451,7 +6451,7 @@ partner operation removerEntidadeGerada
 
 	vCdErro = $xCdErro$
 	vCtxErro = $xCtxErro$
-	
+
 	vDsKeyFields = $keyfields("%%piDsEntity", 1)
 	while (piDsLista != "")
 		if (piDsEntity != "CDF_PARTIDASVC")
@@ -6463,7 +6463,7 @@ partner operation removerEntidadeGerada
 				return(0)
 			endif
 		endif
-		clear/e "%%piDsEntity"	
+		clear/e "%%piDsEntity"
 		vNrKey = 1
 		while (vNrKey &lt;= $itemcount(vDsKeyFields))
 			vDsField = "%%$itemnr(vNrKey, vDsKeyFields)%%%.%%piDsEntity"
@@ -6487,8 +6487,8 @@ partner operation removerEntidadeGerada
 		delitem piDsLista, 1
 	endwhile
 
-	$xCdErro$ = vCdErro 
-	$xCtxErro$ = vCtxErro 
+	$xCdErro$ = vCdErro
+	$xCtxErro$ = vCtxErro
 
 	return(0)
 end ;removerPartidaGerada
@@ -6525,7 +6525,7 @@ public operation reordenarPartida
 			NR_ORDEM.CDF_PARTIDASVC = vNrOrdem
 			CD_OPERADOR.CDF_PARTIDASVC = $item("CD_USUARIO", $$gParamGlb)
 			DT_CADASTRO.CDF_PARTIDASVC = $datim
-			
+
 			clear/e "F_CDF_PARTIDASVC"
 			CD_EMPRESA.F_CDF_PARTIDASVC/init = CD_EMPRESA.CDF_PARTIDASVC
 			CD_MAQUINA.F_CDF_PARTIDASVC/init = CD_MAQUINA.CDF_PARTIDASVC
@@ -6548,7 +6548,7 @@ public operation reordenarPartida
 					endif
 					NR_ORDEM.CDF_PARTIDASVC += 1
 					CD_OPERADOR.CDF_PARTIDASVC = $item("CD_USUARIO", $$gParamGlb)
-					DT_CADASTRO.CDF_PARTIDASVC = $datim					
+					DT_CADASTRO.CDF_PARTIDASVC = $datim
 					setocc "F_CDF_PARTIDASVC", $curocc("F_CDF_PARTIDASVC") + 1
 				endwhile
 			endif
@@ -6641,11 +6641,11 @@ public operation verificarTipoQtPartida
 		;- Item de O.P. ou Item de lote
 		if (!inValidarParametro("CD_EMPOP&uSEP;NR_CICLO&uSEP;NR_OP&uSEP;CD_PRODUTO&uSEP;CD_PROCESSO&uSEP;QT_PARTIDA", piParams, "verificarTipoQtPartida"))
 			return(-1)
-		endif	
+		endif
 		vQtPartida = converterQtProduto(piParams, $item("QT_PARTIDA", piParams), "MUL")
 		if ($status &lt; 0)
 			return(-1)
-		endif			
+		endif
 	elseif ($item("TP_ORIGEM", piParams) = 3)
 		;- Agrupador
 		if (!inValidarParametro("CD_EMPAGRUPADOR&uSEP;NR_AGRUPADOR&uSEP;CD_PROCESSO", piParams, "verificarTipoQtPartida"))
@@ -6676,7 +6676,7 @@ public operation verificarTipoQtPartida
 	endif
 	if (vQtPartida &gt; vQtCapacidade)
 		putitem/id poParams, "IN_QTACIMA", &lt;TRUE&gt;
-		if ($tpAlocacaoPartida$ = 1) 
+		if ($tpAlocacaoPartida$ = 1)
 			;- Aloca partidas com quantidades iguais sem perguntar
 			putitem/id poParams, "TP_QTPARTIDA", 1
 		else
@@ -6687,7 +6687,7 @@ public operation verificarTipoQtPartida
 			putitem/id poParams, "IN_QTTOTAL", &lt;TRUE&gt;
 		endif
 		;--&lt; MNSANTOS
-	endif	
+	endif
 
 	return(0)
 end ;verificarTipoQtPartida
@@ -6721,7 +6721,7 @@ public operation calcularQtDisponivelPartida
 	endif
 
 	vQtCapacidade = getCapacidadeMaquina($item("CD_MAQUINA", piParams), &lt;FALSE&gt;)
-	
+
 	vDsParams = ""
 	putitem/id vDsParams, "CD_EMPRESA", $item("CD_EMPPARTIDA", piParams)
 	putitem/id vDsParams, "NR_PARTIDA", $item("NR_PARTIDA", piParams)
@@ -6731,7 +6731,7 @@ public operation calcularQtDisponivelPartida
 	endif
 
 	putitem/id poParams, "QT_DISPONIVEL", vQtDisponivel
-	
+
 	return(0)
 end ;calcularQtDisponivelPartida
 
@@ -6749,7 +6749,7 @@ public operation realocarItemPartida
 		string  viParams, voParams, vDsLstPartida, vDsPartida, vDsParams
 		Numeric vNrOrdemOrigem, vNrOrdemDest, vNrSeq, vCdMaquina
 	endvariables
-	
+
 	if (!inValidarParametro("CD_MAQORIGEM&uSEP;NR_ORDEMORIGEM", piParams, "calcularQtDisponivelPartida"))
 		return(-1)
 	endif
@@ -6764,7 +6764,7 @@ public operation realocarItemPartida
 		endif
 	endif
 
-	newinstance "CDFSVCO038", vHdInstance	
+	newinstance "CDFSVCO038", vHdInstance
 	if($item("TP_REALOCACAO", piParams) = 1);Realocar
 		if($item("CD_MAQDESTINO", piParams) != $item("CD_MAQORIGEM", piParams));- Realocação entre maquinaS diferentes
 			if(getMaqConfPar("TP_PARTIDA", $item("CD_MAQDESTINO", piParams)) != getMaqConfPar("TP_PARTIDA", $item("CD_MAQORIGEM", piParams)))
@@ -6774,7 +6774,7 @@ public operation realocarItemPartida
 			if(getMaqConfPar("TP_ITEM", $item("CD_MAQDESTINO", piParams)) != getMaqConfPar("TP_ITEM", $item("CD_MAQORIGEM", piParams)))
 				$instancehandle-&gt;setStatus(&lt;STS_ERRO&gt;, "MSG39766", "DESCRICAO=Configuração do tipo de item diferente entre as máquinas!", "ADICIONAL=Operação-&gt;CDFSVCO038.realocarItemPartida")
 				return(-1)
-			endif		
+			endif
 
 			creocc "CDF_PARTIDASVC", -1
 			CD_EMPRESA.CDF_PARTIDASVC/init = $item("CD_EMPORIGEM", piParams)
@@ -6801,15 +6801,15 @@ public operation realocarItemPartida
 					setocc "CDF_PARTIDAISVC", $curocc("CDF_PARTIDAISVC") + 1
 				endwhile
 			endif
-			
+
 			$collhandle("CDF_PARTIDASVC")-&gt;Salvar()
 			if ($procerror)
 				$instancehandle-&gt;SetStatus(&lt;STS_ERRO&gt;, $procerror, $procerrorcontext, "")
 				return(-1)
-			elseif ($status &lt; 0)    
+			elseif ($status &lt; 0)
 				return(-1)
 			endif
-			
+
 			putitem/id vDsPartida, "CD_EMPRESA", CD_EMPRESA.CDF_PARTIDASVC
 			putitem/id vDsPartida, "NR_PARTIDA", NR_PARTIDA.CDF_PARTIDAISVC
 			putitem vDsLstPartida, -1, vDsPartida
@@ -6823,7 +6823,7 @@ public operation realocarItemPartida
 				return(-1)
 			elseif ($status &lt; 0)
 				return(-1)
-			endif	
+			endif
 			viParams = ""
 			putitem/id viParams, "CD_EMPRESA", $item("CD_EMPORIGEM", piParams)
 			putitem/id viParams, "CD_MAQUINA", $item("CD_MAQORIGEM", piParams)
@@ -6833,7 +6833,7 @@ public operation realocarItemPartida
 				return(-1)
 			elseif ($status &lt; 0)
 				return(-1)
-			endif	
+			endif
 		else
 			clear/e "CDF_PARTIDASVC"
 			CD_EMPRESA.CDF_PARTIDASVC/init = $item("CD_EMPORIGEM", piParams)
@@ -6847,12 +6847,12 @@ public operation realocarItemPartida
 				setocc "CDF_PARTIDASVC", vNrOrdemDest ;$item("NR_ORDEMDESTINO", piParams);--&gt;ROS--&gt;220/1872--&gt;24/04/2017--&gt;ALTARADO PARA A VARIAVEL
 				if(vNrOrdemOrigem &gt; vNrOrdemDest);--&gt;ROS--&gt;220/1872--&gt;24/04/2017--&gt;ALTERADO PARA AS VARIAVEIS
 					while($curocc(CDF_PARTIDASVC) &lt; vNrOrdemOrigem);--&gt;ROS--&gt;220/1872--&gt;24/04/2017--&gt;ALTARADO PARA A VARIAVEL
-						NR_ORDEM.CDF_PARTIDASVC += 1	
+						NR_ORDEM.CDF_PARTIDASVC += 1
 						setocc "CDF_PARTIDASVC", $curocc("CDF_PARTIDASVC") + 1
 					endwhile
 				elseif(vNrOrdemOrigem &lt; vNrOrdemDest);--&gt;ROS--&gt;220/1872--&gt;24/04/2017--&gt;ALTERADO PARA AS VARIAVEIS
 					while($curocc("CDF_PARTIDASVC") &gt; vNrOrdemOrigem);--&gt;ROS--&gt;220/1872--&gt;24/04/2017--&gt;ALTARADO PARA A VARIAVEL
-						NR_ORDEM.CDF_PARTIDASVC -= 1	
+						NR_ORDEM.CDF_PARTIDASVC -= 1
 						setocc "CDF_PARTIDASVC", $curocc("CDF_PARTIDASVC") - 1
 					endwhile
 				endif
@@ -6861,11 +6861,11 @@ public operation realocarItemPartida
 				if ($procerror)
 					$instancehandle-&gt;SetStatus(&lt;STS_ERRO&gt;, $procerror, $procerrorcontext, "")
 					return(-1)
-				elseif ($status &lt; 0)    
+				elseif ($status &lt; 0)
 					return(-1)
 				endif
 			endif
-		endif		
+		endif
 
 		vCdMaquina = $item("CD_MAQORIGEM", piParams)
 		;-&gt;HSGARCIA Proj 217/610 09/08/2017
@@ -6895,7 +6895,7 @@ public operation realocarItemPartida
 			return(-1)
 		endif
 		NR_ORDEM.CDF_PARTIDASVC = $item("NR_ORDEMDESTINO", piParams)
-		
+
 		creocc "CDF_PARTIDASVC", -1
 		CD_EMPRESA.CDF_PARTIDASVC/init = $item("CD_EMPDESTINO", piParams)
 		NR_PARTIDA.CDF_PARTIDASVC/init = $item("NR_PARTIDADESTINO", piParams)
@@ -6906,12 +6906,12 @@ public operation realocarItemPartida
 			return(-1)
 		endif
 		NR_ORDEM.CDF_PARTIDASVC = $item("NR_ORDEMORIGEM", piParams)
-		
+
 		$collhandle("CDF_PARTIDASVC")-&gt;Salvar()
 		if ($procerror)
 			$instancehandle-&gt;SetStatus(&lt;STS_ERRO&gt;, $procerror, $procerrorcontext, "")
 			return(-1)
-		elseif ($status &lt; 0)    
+		elseif ($status &lt; 0)
 			return(-1)
 		endif
 	endif
@@ -6920,9 +6920,9 @@ public operation realocarItemPartida
 	if($item("CD_MOTIVO", piParams) != "")
 		selectdb max(NR_SEQUENCIA) from "CDF_PARTIDAREALOCSVC" u_where (CD_EMPRESA.CDF_PARTIDAREALOCSVC = $item("CD_EMPORIGEM", piParams) %\
 			&amp; NR_PARTIDA.CDF_PARTIDAREALOCSVC = $item("NR_PARTIDAORIGEM", piParams)) to vNrSeq
-		
+
 		clear/e "CDF_PARTIDASVC"
-		
+
 		vNrSeq += 1
 		creocc "CDF_PARTIDAREALOCSVC", -1
 		CD_EMPRESA.CDF_PARTIDAREALOCSVC = $item("CD_EMPORIGEM", piParams)
@@ -6935,12 +6935,12 @@ public operation realocarItemPartida
 		CD_MAQUINADEST.CDf_PARTIDAREALOCSVC = $item("CD_MAQDESTINO", piParams)
 		NR_ORDEMDEST.CDF_PARTIDAREALOCSVC = $item("NR_ORDEMDESTINO", piParams)
 		CD_MOTIVO.CDF_PARTIDAREALOCSVC = $item("CD_MOTIVO", piParams)
-		
+
 		$collhandle("CDF_PARTIDAREALOCSVC")-&gt;Salvar()
 		if ($procerror)
 			$instancehandle-&gt;SetStatus(&lt;STS_ERRO&gt;, $procerror, $procerrorcontext, "")
 			return(-1)
-		elseif ($status &lt; 0)    
+		elseif ($status &lt; 0)
 			return(-1)
 		endif
 	endif
@@ -7016,7 +7016,7 @@ public operation removerItemPartida
 					return(-1)
 				endif
 			endif
-		
+
 			clear/e "CDF_PARTIDAISVC"
 			retrieve/e "CDF_PARTIDAISVC"
 		endif
@@ -7024,7 +7024,7 @@ public operation removerItemPartida
 
 	if ($empty("CDF_PARTIDAISVC") &amp; $item("IN_TOTAL", piParams) != &lt;TRUE&gt;)
 		;--&gt; MNSANTOS - Prj 217/330 - 16/08/2016
-		if(!$empty("CDF_PARTIDAEMISSAOSVC"))	
+		if(!$empty("CDF_PARTIDAEMISSAOSVC"))
 			$instancehandle-&gt;SetStatus(&lt;STS_ERRO&gt;, "MSG40418", "DESCRICAO=Partida não pode ser removida pois possui emissão ralacionada!", "ADICIONAL=Operação-&gt;CDFSVCO038.removerItemPartida")
 			return(-1)
 		endif
@@ -7045,7 +7045,7 @@ public operation removerItemPartida
 			return(-1)
 		elseif ($status &lt; 0)
 			return(-1)
-		endif	
+		endif
 
 		;-&gt;HSGARCIA Proj 217/610 09/08/2017
 		if($tpIntAcabamentoTextil$ &gt; 0 &amp; getInfTecConf("", vCdMaquina, "", "", 4, 42) != "");-&gt;HSGARCIA Proj 217/664 03/11/17 -- ;-&gt;HSGARCIA Proj 253/378 DVAIND-1940 05/12/2018
@@ -7074,7 +7074,7 @@ public operation removerItemPartida
 			return(-1)
 		elseif ($status &lt; 0)
 			return(-1)
-		endif	
+		endif
 	else
 		;--&gt; MNSANTOS - Prj 217/330 - 16/08/2016
 		if(!$empty("CDF_PARTIDAEMISSAOSVC"))
@@ -7091,14 +7091,14 @@ public operation removerItemPartida
 					return(-1)
 				elseif ($status &lt; 0)
 					return(-1)
-				endif	
+				endif
 				setocc "CDF_PARTIDAEMISSAOSVC", $curocc("CDF_PARTIDAEMISSAOSVC") + 1
 			endwhile
-		endif		
+		endif
 		;--&lt; MNSANTOS
 	endif
 
-	if ($instance$)	
+	if ($instance$)
 		$instance$-&gt;limparTempoPartida($item("CD_EMPRESA", piParams), $item("NR_PARTIDA", piParams))
 	endif
 
@@ -7182,7 +7182,7 @@ public operation gerarTempoPartida
 			return(-1)
 		endif
 		;IES Proj/tar 253/227 25/09/2018
-		if (NR_ORDEM.CDF_PARTIDASVC = 0) 
+		if (NR_ORDEM.CDF_PARTIDASVC = 0)
 			$instancehandle-&gt;setStatus(&lt;STS_ERRO&gt;, "MSG43520", "DESCRICAO=Partida não está alocada!", "ADICIONAL=Operação-&gt;CDFSVCO038.gerarTempoPartida")
 			return(-1)
 		endif
@@ -7208,9 +7208,9 @@ public operation gerarTempoPartida
 			vHandleInstance-&gt;buscarReceitaPartida(viParams, voParams, $xCdErro$, $xCtxErro$)
 			if ($procerror)
 				$instancehandle-&gt;SetStatus(&lt;STS_ERRO&gt;, $procerror, $procerrorcontext, "")
-				return(-1)  
+				return(-1)
 			elseif ($status &lt; 0)
-				return(-1)  
+				return(-1)
 			endif
 			if($item("CD_RECEITA", voParams) != "")
 				vDsCondicao = ""
@@ -7218,7 +7218,7 @@ public operation gerarTempoPartida
 				putitem/id vDsCondicao, "NR_PARTIDA", NR_PARTIDA.CDF_PARTIDASVC
 				putitem/id vDsCondicao, "TP_SITUACAO", 1
 				putitem/id vDsCondicao, "TP_EMISSAO", "&uNOT;&uEQ;3" ;-&gt;HSGARCIA Proj 220/3852 DVAIND-2253 20/12/18
-				if(getFieldData("CD_EMPPARTIDA", "CDF_PARTIDAEMISSAOSVC", vDsCondicao) = "") 
+				if(getFieldData("CD_EMPPARTIDA", "CDF_PARTIDAEMISSAOSVC", vDsCondicao) = "")
 					$instancehandle-&gt;setStatus(&lt;STS_ERRO&gt;, "MSG30687", "DESCRICAO=Ainda não foi realizado a emissão de receita, a partida não pode ser iniciada.", "ADICIONAL=Operação-&gt;CDFSVCO038.gerarTempoPartida")
 					return(-1)
 				endif
@@ -7232,11 +7232,11 @@ public operation gerarTempoPartida
 			vHandleInstance-&gt;buscarReceitaPartida(viParams, voParams, $xCdErro$, $xCtxErro$)
 			if ($procerror)
 				$instancehandle-&gt;SetStatus(&lt;STS_ERRO&gt;, $procerror, $procerrorcontext, "")
-				return(-1)  
+				return(-1)
 			elseif ($status &lt; 0)
-				return(-1)  
+				return(-1)
 			endif
-			
+
 			if($item("CD_RECEITA", voParams) != "")
 				vDsCondicao = ""
 				putitem/id vDsCondicao, "CD_EMPPARTIDA", CD_EMPRESA.CDF_PARTIDASVC
@@ -7250,8 +7250,8 @@ public operation gerarTempoPartida
 					endif
 				else
 					$instancehandle-&gt;setStatus(&lt;STS_ERRO&gt;, "MSG30687", "DESCRICAO=Ainda não foi realizado a emissão de receita, a partida não pode ser iniciada.", "ADICIONAL=Operação-&gt;CDFSVCO038.gerarTempoPartida")
-					return(-1)	
-				endif							
+					return(-1)
+				endif
 			endif
 		;&lt;--HSGARCIA
 		endif
@@ -7299,9 +7299,9 @@ public operation gerarTempoPartida
 			vHandleInstance-&gt;buscarReceitaPartida(viParams, voParams, $xCdErro$, $xCtxErro$)
 			if ($procerror)
 				$instancehandle-&gt;SetStatus(&lt;STS_ERRO&gt;, $procerror, $procerrorcontext, "")
-				return(-1)  
+				return(-1)
 			elseif ($status &lt; 0)
-				return(-1)  
+				return(-1)
 			endif
 			if($item("CD_RECEITA", voParams) != "")
 				vDsCondicao = ""
@@ -7314,7 +7314,7 @@ public operation gerarTempoPartida
 					return(-1)
 				endif
 			endif
-		endif		
+		endif
 		;--&lt; MNSANTOS
 
 		vTpSituacao = 4 ;Encerrada
@@ -7388,7 +7388,7 @@ public operation gerarTempoPartida
 											putitem/id vDsAux, "NR_ORDEMORIGEM", $item("NR_ORDEM", vDsRegProgOri)
 											putitem/id vDsAux, "CD_LOCALDESTINO", $item("CD_LOCAL", vDsRegProgDest)
 											putitem/id vDsAux, "NR_SEQPROGDESTINO", $item("NR_SEQPROG", vDsRegProgDest)
-											putitem/id vDsAux, "NR_ORDEMDESTINO", $item("NR_ORDEM", vDsRegProgDest)	
+											putitem/id vDsAux, "NR_ORDEMDESTINO", $item("NR_ORDEM", vDsRegProgDest)
 											putitem/id vDsAux, "DS_LSTLOTE", vDsLstLote
 											putitem vDsLstRegMov, -1, vDsAux
 										endif
@@ -7412,7 +7412,7 @@ public operation gerarTempoPartida
 			return(-1)
 		elseif ($status &lt; 0)
 			return(-1)
-		endif	
+		endif
 		;--&lt;MNSANTOS
 	case "REINICIAR"
 		if (TP_TEMPO.CDF_PARTIDAPTSVC = 1 &amp; DT_FIM.CDF_PARTIDAPTSVC = "")
@@ -7427,8 +7427,8 @@ public operation gerarTempoPartida
 
 	;-- Fechar tempo do ultimo registro
 	if(DT_FIM.CDF_PARTIDAPTSVC = "" &amp; !$empty("CDF_PARTIDAPTSVC"))
-		; Quando for "Tempo manual", não pega a data do servidor 
-		if($item("DS_DATAHORA", piParams) = "")	
+		; Quando for "Tempo manual", não pega a data do servidor
+		if($item("DS_DATAHORA", piParams) = "")
 			DT_FIM.CDF_PARTIDAPTSVC = $datim
 			IN_MANUAL.CDF_PARTIDAPTSVC = &lt;FALSE&gt;
 		else
@@ -7437,7 +7437,7 @@ public operation gerarTempoPartida
 		endif
 		CD_OPERFIM.CDF_PARTIDAPTSVC = $item("CD_USUARIO", $$gParamGlb)
 		DT_OPERFIM.CDF_PARTIDAPTSVC = $datim
-		
+
 		if (DT_FIM.CDF_PARTIDAPTSVC &lt; DT_INICIO.CDF_PARTIDAPTSVC)
 			$instancehandle-&gt;SetStatus(&lt;STS_ERRO&gt;, "MSG2671", "DESCRICAO=Data fim menor que data início!", "ADICIONAL=Operação-&gt;CDFSVCO033.gravaItemTempoPartida")
 			return(-1)
@@ -7445,7 +7445,7 @@ public operation gerarTempoPartida
 		CD_OPERADOR.CDF_PARTIDAPTSVC = $item("CD_USUARIO", $$gParamGlb)
 		DT_CADASTRO.CDF_PARTIDAPTSVC = $datim
 	endif
-	
+
 	if(vCdNovoMotivo != "")
 		CD_MOTIVO.CDF_PARTIDAPTSVC = vCdNovoMotivo
 	endif
@@ -7493,23 +7493,23 @@ public operation gerarTempoPartida
 			if ($procerror)
 				$instancehandle-&gt;SetStatus(&lt;STS_ERRO&gt;, $procerror, $procerrorcontext, "")
 				return(-1)
-			elseif ($status &lt; 0)    
+			elseif ($status &lt; 0)
 				return(-1)
 			endif
 			return(0)
 		endif
-	endif	
+	endif
 
 	if(vTpSituacao != "")
 		TP_SITUACAO.CDF_PARTIDAPSVC = vTpSituacao
 		TP_SITUACAO.CDF_PARTIDASVC = vTpSituacao
-		
+
 		if(TP_SITUACAO.CDF_PARTIDASVC = 1)
 			if(!$empty("CDF_PARTIDAISVC"))
 				setocc "CDF_PARTIDAISVC", 1
 				while ($status &gt;= 0)
 					IN_ENCERRADO.CDF_PARTIDAISVC/init = &lt;FALSE&gt;
-					setocc "CDF_PARTIDAISVC", $curocc ("CDF_PARTIDAISVC") + 1 
+					setocc "CDF_PARTIDAISVC", $curocc ("CDF_PARTIDAISVC") + 1
 				endwhile
 			endif
 		endif
@@ -7525,7 +7525,7 @@ public operation gerarTempoPartida
 		endif
 		;&lt;-- LOMoreira/DSantos Prj-&gt;217-545 --&gt;
 
-		;-- Quando for iniciar uma partida deverá realizar movimento inicial para 
+		;-- Quando for iniciar uma partida deverá realizar movimento inicial para
 		; as ordens que estiverem aguardando liberação.
  		sort/e "CDF_PARTIDAISVC", "CD_EMPOP.CDF_PARTIDAISVC, NR_CICLO.CDF_PARTIDAISVC, NR_OP.CDF_PARTIDAISVC, CD_PRODUTO.CDF_PARTIDAISVC, NR_LOTE.CDF_PARTIDAISVC, NR_ITEM.CDF_PARTIDAISVC"
 		setocc "CDF_PARTIDAISVC", 1
@@ -7541,8 +7541,8 @@ public operation gerarTempoPartida
 					activate "PCPSVCO030".geraMovimentoInicialOp($$gParamGlb, vDsAux, voParams, $xCdErro$, $xCtxerro$)
 					if ($procerror)
 						$instancehandle-&gt;SetStatus(&lt;STS_ERRO&gt;, $procerror, $procerrorcontext, "")
-						return(-1)  
-					elseif ($status &lt; 0)    
+						return(-1)
+					elseif ($status &lt; 0)
 						return(-1)
 					endif
 					vInMovimentar = &lt;FALSE&gt;
@@ -7563,10 +7563,10 @@ public operation gerarTempoPartida
 				endif
 				vQtMovimento += QT_REFERENCIA.CDF_PARTIDAISVC
 
-				if (inOpiPartidaDiferente()) 
+				if (inOpiPartidaDiferente())
 					if (vQtMovimento = 0 | (vQtItemLote &gt; 0 &amp; vQtMovimento != vQtItemLote))
 						vInMovimentar = &lt;FALSE&gt;
-					else					
+					else
 						vDsCondicao = ""
 						putitem/id vDsCondicao, "CD_EMPRESA", CD_EMPOP.CDF_PARTIDAISVC
 						putitem/id vDsCondicao, "NR_CICLO", NR_CICLO.CDF_PARTIDAISVC
@@ -7611,7 +7611,7 @@ public operation gerarTempoPartida
 										putitem/id vDsAux, "NR_ORDEMORIGEM", $item("NR_ORDEM", vDsRegProgOri)
 										putitem/id vDsAux, "CD_LOCALDESTINO", $item("CD_LOCAL", vDsRegProgDest)
 										putitem/id vDsAux, "NR_SEQPROGDESTINO", $item("NR_SEQPROG", vDsRegProgDest)
-										putitem/id vDsAux, "NR_ORDEMDESTINO", $item("NR_ORDEM", vDsRegProgDest)	
+										putitem/id vDsAux, "NR_ORDEMDESTINO", $item("NR_ORDEM", vDsRegProgDest)
 										putitem/id vDsAux, "DS_LSTLOTE", vDsLstLote
 										putitem vDsLstRegMov, -1, vDsAux
 									endif
@@ -7634,7 +7634,7 @@ public operation gerarTempoPartida
 	if ($procerror)
 		$instancehandle-&gt;SetStatus(&lt;STS_ERRO&gt;, $procerror, $procerrorcontext, "")
 		return(-1)
-	elseif ($status &lt; 0)    
+	elseif ($status &lt; 0)
 		return(-1)
 	endif
 
@@ -7655,18 +7655,18 @@ public operation gerarTempoPartida
 				vHandleInstance-&gt;buscarReceitaPartida(vDsAux,voParams,$xCdErro$,$xCtxErro$)
 				if ($procerror)
 					$instancehandle-&gt;SetStatus(&lt;STS_ERRO&gt;, $procerror, $procerrorcontext, "")
-					return(-1)  
+					return(-1)
 				elseif ($status &lt; 0)
-					return(-1)  
+					return(-1)
 				endif
 				if($item("CD_RECEITA", voParams) != "")
 					vDsAux = ""
 					putitem/id vDsAux, "CD_RECEITA", $item("CD_RECEITA", voParams)
-					;--&gt; MNSANTOS - Prj 217/436 - 17/02/2017	
+					;--&gt; MNSANTOS - Prj 217/436 - 17/02/2017
 					activate "PCPSVCO043".validarReceita(vDsAux, voParams, $xCdErro$, $xCtxerro$)
 					if ($procerror)
 						$instancehandle-&gt;SetStatus(&lt;STS_ERRO&gt;, $procerror, $procerrorcontext, "")
-						return(-1)  
+						return(-1)
 					elseif ($status &lt; 0)
 							return(-1)
 					endif
@@ -7674,7 +7674,7 @@ public operation gerarTempoPartida
 						poParams = voParams
 						return(-1)
 					endif
-				
+
 					viParams = ""
 					if(vTpEmissaoMaq = 4)
 						putitem/id viParams, "TP_VINCULO", 3
@@ -7685,15 +7685,15 @@ public operation gerarTempoPartida
 					putitem/id viParams, "NR_PARTIDA", NR_PARTIDA.CDF_PARTIDASVC
 					putitem/id viParams, "IN_GERAR_EMISSAO", &lt;TRUE&gt;
 					putitem/id viParams, "IN_DESCONSIDERARLASTRO", $item("IN_DESCONSIDERARLASTRO", piParams)
-					newinstance "CDFSVCO038", vHandleInstance	
+					newinstance "CDFSVCO038", vHandleInstance
 					vHandleInstance-&gt;gerarEmissaoPartida(viParams,voParams,$xCdErro$,$xCtxErro$)
 					if ($procerror)
 						$instancehandle-&gt;SetStatus(&lt;STS_ERRO&gt;, $procerror, $procerrorcontext, "")
-						return(-1)  
+						return(-1)
 					elseif ($status &lt; 0)
-						return(-1)  
-					endif		
-	
+						return(-1)
+					endif
+
 					if(vTpEmissaoMaq = 3 &amp; voParams != "")
 						putitem/id poParams, "IN_EMISSAOAUTOMATICA", &lt;TRUE&gt;
 						putitem/id poParams, "CD_EMPEMISSAO", $item("CD_EMPRESA", voParams)
@@ -7701,7 +7701,7 @@ public operation gerarTempoPartida
 					endif
 				endif
 			endif
-		endif	
+		endif
 
 		NR_ORDEM.CDF_PARTIDASVC = ""
 		CD_OPERADOR.CDF_PARTIDASVC = $item("CD_USUARIO", $$gParamGlb)
@@ -7727,7 +7727,7 @@ public operation gerarTempoPartida
 		if ($procerror)
 			$instancehandle-&gt;SetStatus(&lt;STS_ERRO&gt;, $procerror, $procerrorcontext, "")
 			return(-1)
-		elseif ($status &lt; 0)    
+		elseif ($status &lt; 0)
 			return(-1)
 		endif
 
@@ -7740,7 +7740,7 @@ public operation gerarTempoPartida
 			return(-1)
 		elseif ($status &lt; 0)
 			return(-1)
-		endif	
+		endif
 	endif
 
 	;-&gt;HSGARCIA Proj 217/610 10/08/2017
@@ -7748,7 +7748,7 @@ public operation gerarTempoPartida
 		viParams = ""
 		putitem/id viParams, "CD_EMPRESA", $item("CD_EMPRESA", piParams)
 		putitem/id viParams, "NR_PARTIDA", $item("NR_PARTIDA", piParams)
-		if(vDsOperacao = "INICIAR")				
+		if(vDsOperacao = "INICIAR")
 			activate "CDFSVCO039".iniciarPartida(viParams, voParams, $xCdErro$, $xCtxerro$)
 			if ($procerror)
 				$instancehandle-&gt;SetStatus(&lt;STS_ERRO&gt;, $procerror, $procerrorcontext, "")
@@ -7769,7 +7769,7 @@ public operation gerarTempoPartida
 	;&lt;-
 
 	;&lt;-- LOMoreira/DSantos Prj-&gt;217-545 22/06/2017 --&gt;
-	if (vDsLstRegMov != "" &amp; vInMovimentar) 
+	if (vDsLstRegMov != "" &amp; vInMovimentar)
 		viParams = ""
 		putitem/id viParams, "DS_LSTMOVIMENTO", vDsLstRegMov
 		putitem/id viParams, "DT_MOVIMENTO", $item("DT_PRODUCAO", $$gParamGlb)
@@ -7781,7 +7781,7 @@ public operation gerarTempoPartida
 		activate "CDFSVCO025".movimentarOP($$gParamGlb, viParams, voParams, $xCdErro$, $xCtxerro$)
 		if ($procerror)
 			$instancehandle-&gt;SetStatus(&lt;STS_ERRO&gt;, $procerror, $procerrorcontext, "")
-			return(-1)  
+			return(-1)
 		elseif ($status &lt; 0)
 			return(-1)
 		endif
@@ -7893,7 +7893,7 @@ public operation salvarPartida
 	if (vQtTotalItem != $itemcount(vDsLstItem) &amp; TP_SITUACAO.CDF_PARTIDASVC != 0)
 		$instancehandle-&gt;SetStatus(&lt;STS_ERRO&gt;, "MSG39787", "DESCRICAO=Situação da partida não permite alteração nos itens!", "ADICIONAL=Operação-&gt;CDFSVCO038.salvarPartida")
 		return(-1)
-	endif	
+	endif
 
 	vQtPartida = ""
 	vTpItemMaq = getMaqConfPar("TP_ITEM", CD_MAQUINA.CDF_PARTIDASVC)
@@ -8032,7 +8032,7 @@ public operation removerPartida
 		return(-1)
 	elseif ($status &lt; 0)
 		return(-1)
-	endif	
+	endif
 
 	newinstance "CDFSVCO038", vHandleInstance
 	viParams = ""
@@ -8044,7 +8044,7 @@ public operation removerPartida
 		return(-1)
 	elseif ($status &lt; 0)
 		return(-1)
-	endif	
+	endif
 
 	return(0)
 end ;removerPartida
@@ -8052,7 +8052,7 @@ end ;removerPartida
 ;-------------------------------
 public operation buscarQtPartida
 	;----------------------------
-	;&lt;-- LOMoreira Prj-&gt;217-218 23/03/2016 --&gt;	
+	;&lt;-- LOMoreira Prj-&gt;217-218 23/03/2016 --&gt;
 	params
 		string piParams : IN
 		string poParams : OUT
@@ -8093,7 +8093,7 @@ public operation buscarQtPartida
 	putitem/id vDsRegistro, "CD_EMPRESA", $item("CD_EMPRESA", piParams)
 	putitem/id vDsRegistro, "NR_CICLO", $item("NR_CICLO", piParams)
 	putitem/id vDsRegistro, "NR_OP", $item("NR_OP", piParams)
-	putitem/id vDsRegistro, "TP_SITUACAO", "0&uSEP;1&uSEP;4" ;- Aguardando, Andamento e Encerrada	
+	putitem/id vDsRegistro, "TP_SITUACAO", "0&uSEP;1&uSEP;4" ;- Aguardando, Andamento e Encerrada
 	if (vTpItem = 2)
 		putitem/id vDsRegistro, "NR_LOTE", $item("NR_LOTE", piParams)
 		putitem/id vDsRegistro, "NR_ITEM", $item("NR_ITEM", piParams)
@@ -8167,7 +8167,7 @@ public operation gerarEmissaoPartida
 		;	vQtVolume = getQtAlocadaPartida(viParams, 4)
 		;else
 		;	vQtVolume = getFieldData("QT_VOLUMEIDEAL", "CDF_GMAQBENSVC", "CD_SEQMAQ=%%vCdSeqMaq")
-		;	putitem/id poParams, "IN_VOLUMEIDEAL", &lt;TRUE&gt; 
+		;	putitem/id poParams, "IN_VOLUMEIDEAL", &lt;TRUE&gt;
 		;endif
 		vQtPeso = getQtAlocadaPartidaCone(viParams, 3, vQtCone)
 		viParams = ""
@@ -8192,13 +8192,13 @@ public operation gerarEmissaoPartida
 			vQtPeso = 0
 		endif
 		;DSantos --&gt;
-		
+
 	elseif (TP_TIPO.CDF_PARTIDASVC = 4)
 		;- Partida contínua com quantidade
 		vQtVolume = getQtAlocadaPartida(viParams, 4)
 		if(vQtVolume = 0)
 			vQtVolume = getFieldData("QT_VOLUMEIDEAL", "CDF_GMAQBENSVC", "CD_SEQMAQ=%%vCdSeqMaq")
-			putitem/id poParams, "IN_VOLUMEIDEAL", &lt;TRUE&gt; 
+			putitem/id poParams, "IN_VOLUMEIDEAL", &lt;TRUE&gt;
 		else
 			vQtVolume += getFieldData("QT_LASTRO", "CDF_GMAQBENSVC", "CD_SEQMAQ=%%vCdSeqMaq")
 		endif
@@ -8206,7 +8206,7 @@ public operation gerarEmissaoPartida
 	endif
 
 	;&lt;-- LOMoreira Prj-&gt;217-583 25/07/2017 --&gt;
-	if(!inValidarLocalizacaoItem())	
+	if(!inValidarLocalizacaoItem())
 		$instancehandle-&gt;SetStatus(&lt;STS_ERRO&gt;, "MSG41699", "DESCRICAO=Partida possui item sem localização para emissão!", "ADICIONAL=Operação-&gt;CDFSVCO038.gerarEmissaoPartida")
 		return(-1)
 	endif
@@ -8245,7 +8245,7 @@ public operation gerarEmissaoPartida
 					vQtReferencia += QT_REFERENCIA.CDF_PARTIDAISVC
 				endif
 				setocc "CDF_PARTIDAISVC", $curocc("CDF_PARTIDAISVC") + 1
-			endwhile	
+			endwhile
 			;--&lt; MNSANTOS
 		endif
 
@@ -8339,7 +8339,7 @@ public operation gerarEmissaoReceita
 	else
 		vInRetornarFor = &lt;FALSE&gt;
 	endif
-	
+
 	if (!inValidarEmissao(vQtVolume, vQtPesoIn, $item("CD_SEQMAQ", piParams), $item("IN_PARTIDASEMITEM", piParams), $item("CD_RECEITA", piParams)))
 		return(-1)
 	endif
@@ -8367,11 +8367,11 @@ public operation gerarEmissaoReceita
 	putitem/id DS_INFO.TEX_RECEMISSASVC, "IN_DESCONSIDERARLASTRO", $item("IN_DESCONSIDERARLASTRO", piParams)
 	; DSantos --&gt;
 	putitem/id DS_INFO.TEX_RECEMISSASVC, "DS_LSTTPUTILIZACAO", $item("DS_LSTTPUTILIZACAO", piParams);--&gt; MNSANTOS - Prj 217/305 - 27/07/2016
-	CD_OPERADORINC.TEX_RECEMISSASVC	= $item("CD_USUARIO", $$gParamGlb) 
-	DT_INCLUSAO.TEX_RECEMISSASVC = $datim		
+	CD_OPERADORINC.TEX_RECEMISSASVC	= $item("CD_USUARIO", $$gParamGlb)
+	DT_INCLUSAO.TEX_RECEMISSASVC = $datim
 	DT_EMISSAO.TEX_RECEMISSASVC = $datim
-	CD_OPERADOR.TEX_RECEMISSASVC	= $item("CD_USUARIO", $$gParamGlb) 
-	DT_CADASTRO.TEX_RECEMISSASVC = $datim	
+	CD_OPERADOR.TEX_RECEMISSASVC	= $item("CD_USUARIO", $$gParamGlb)
+	DT_CADASTRO.TEX_RECEMISSASVC = $datim
 
 	;--&gt; MNSANTOS - Prj 217/280 - 23/06/2016
 	if($item("DS_LSTOPI", piParams) != "")
@@ -8385,7 +8385,7 @@ public operation gerarEmissaoReceita
 			delitem vDsLstOpI, 1
 		endwhile
 	endif
-	;--&lt; MNSANTOS	
+	;--&lt; MNSANTOS
 
 	;--&gt; MNSANTOS - Prj 217/510 - 16/05/2017
 	viParams = ""
@@ -8398,7 +8398,7 @@ public operation gerarEmissaoReceita
 	elseif($status &lt; 0)
 		return(-1)
 	endif
-	
+
 	if($item("DS_RECEITA", voParams) != "")
 		vDsReceita = $item("DS_RECEITA", voParams)
 		vDsLstFase = $item("DS_LSTFASE", vDsReceita)
@@ -8420,14 +8420,14 @@ public operation gerarEmissaoReceita
 				if (vPrCobertura &gt; 0)
 					vQtPeso = vQtPesoIn * (vPrCobertura / 100)
 				endif
-				
+
 				if($item("DS_LSTCAMPO", vDsRegFase) != "")
 					vDsLstCampo = $item("DS_LSTCAMPO", vDsRegFase)
 					while (vDsLstCampo != "")
 						creocc "CDF_CFGRECEMIFASESVC", -1
 						getlistitems/occ $itemnr(1, vDsLstCampo), "CDF_CFGRECEMIFASESVC"
 						CD_OPERADOR.CDF_CFGRECEMIFASESVC = $item("CD_USUARIO", $$gParamGlb)
-						DT_CADASTRO.CDF_CFGRECEMIFASESVC = $datim	
+						DT_CADASTRO.CDF_CFGRECEMIFASESVC = $datim
 						delitem vDsLstCampo, 1
 					endwhile
 				endif
@@ -8461,7 +8461,7 @@ public operation gerarEmissaoReceita
 			if (!inValidarRelBanhoFaseEmissao(CD_SEQMAQ.TEX_RECEMISSASVC, QT_RELBANHO.TEX_RECEMIFASSVC, NR_FASE.TEX_RECEMIFASSVC, vQtPeso))
 				return(-1)
 			endif
-			
+
 			vDsLstOper = $item("DS_LSTOPER", vDsRegFase)
 			while(vDsLstOper != "")
 				creocc "TEX_RECEMIOPESVC", -1
@@ -8483,7 +8483,7 @@ public operation gerarEmissaoReceita
 							creocc "CDF_CFGRECEMIOPERSVC", -1
 							getlistitems/occ $itemnr(1, vDsLstCampo), "CDF_CFGRECEMIOPERSVC"
 							CD_OPERADOR.CDF_CFGRECEMIOPERSVC = $item("CD_USUARIO", $$gParamGlb)
-							DT_CADASTRO.CDF_CFGRECEMIOPERSVC = $datim	
+							DT_CADASTRO.CDF_CFGRECEMIOPERSVC = $datim
 							delitem vDsLstCampo, 1
 						endwhile
 					endif
@@ -8503,7 +8503,7 @@ public operation gerarEmissaoReceita
 					NR_ORDEM.TEX_RECEOPPRDSVC = $curocc("TEX_RECEOPPRDSVC")
 					CD_OPERADOR.TEX_RECEOPPRDSVC = $item("CD_USUARIO", $$gParamGlb)
 					DT_CADASTRO.TEX_RECEOPPRDSVC = $datim
-			
+
 					viParams = ""
 					putitem/id viParams, "CD_RECEITA", $item("CD_RECEITA", vDsReceita)
 					putitem/id viParams, "NR_FASE", $item("NR_FASE", vDsRegFase)
@@ -8559,7 +8559,7 @@ public operation gerarEmissaoReceita
 			delitem vDsLstFase, 1
 		endwhile
 	endif
-	
+
 	if (vDsLstFor = "" | !vInRetornarFor)
 		;&lt;-- DSantos Prj-&gt;217-511 02/06/2017
 		viParams = ""
@@ -8584,7 +8584,7 @@ public operation gerarEmissaoReceita
 		endif
 		;===IES
 
-		if ($inValidarSaldoEmiRec$);&lt;-- LOMoreira Prj-&gt;217-708 22/01/2018 --&gt;	
+		if ($inValidarSaldoEmiRec$);&lt;-- LOMoreira Prj-&gt;217-708 22/01/2018 --&gt;
 			$instancehandle-&gt;validarSaldoEmiRec(vDsLstSaldoPrd)
 			if ($procerror)
 				$instancehandle-&gt;SetStatus(&lt;STS_ERRO&gt;, $procerror, $procerrorcontext, "")
@@ -8625,13 +8625,13 @@ public operation calcularPesoVolumeItem
  	vDsLstLogCalc = $dsLstLogCalc$
 
 	if($item("TP_CALCULO", piParams) = 1)
-		;Partida	
+		;Partida
 		if(!inValidarParametro("CD_EMPRESA&uSEP;NR_PARTIDA&uSEP;NR_SEQUENCIA", piParams, "calcularPesoVolumeItem"))
 			return(-1)
 		endif
 		delitem/id piParams, "TP_CALCULO"
 		putitem/id poParams, "QT_VOLUME", getQtAlocadaPartida(piParams, 4)
-		putitem/id poParams, "QT_PESO", getQtAlocadaPartida(piParams, 3)		
+		putitem/id poParams, "QT_PESO", getQtAlocadaPartida(piParams, 3)
 	elseif($item("TP_CALCULO", piParams) = 2)
 		;Item de O.P.
 		if(!inValidarParametro("CD_EMPOP&uSEP;NR_CICLO&uSEP;NR_OP&uSEP;CD_PRODUTO&uSEP;CD_PROCESSO&uSEP;QT_PRODUTO", piParams, "calcularPesoVolumeItem"))
@@ -8732,7 +8732,7 @@ public operation relacionarEmissaoPartida
 			return(-1)
 		elseif ($status &lt; 0)
 			return(-1)
-		endif		
+		endif
 	endif
 	;&lt;-
 
@@ -8788,9 +8788,9 @@ public operation alterarSituacaoPartida
 				vHandleInstance-&gt;buscarReceitaPartida(viParams, voParams, $xCdErro$, $xCtxErro$)
 				if ($procerror)
 					$instancehandle-&gt;SetStatus(&lt;STS_ERRO&gt;, $procerror, $procerrorcontext, "")
-					return(-1)  
+					return(-1)
 				elseif ($status &lt; 0)
-					return(-1)  
+					return(-1)
 				endif
 				if($item("CD_RECEITA", voParams) != "")
 					$handleEntity$-&gt;consultar("CDF_PARTIDAEMISSAOSVC", "CD_EMPPARTIDA=%%CD_EMPRESA.CDF_PARTIDASVC&uSEP;NR_PARTIDA=%%NR_PARTIDA.CDF_PARTIDASVC&uSEP;TP_SITUACAO=1")
@@ -8814,8 +8814,8 @@ public operation alterarSituacaoPartida
 		if (!$empty("CDF_PARTIDAISVC"))
 			setocc "CDF_PARTIDAISVC", 1
 			while ($status &gt;= 0)
-				IN_ENCERRADO.CDF_PARTIDAISVC = &lt;FALSE&gt;				
-				setocc "CDF_PARTIDAISVC", $curocc ("CDF_PARTIDAISVC") + 1 
+				IN_ENCERRADO.CDF_PARTIDAISVC = &lt;FALSE&gt;
+				setocc "CDF_PARTIDAISVC", $curocc ("CDF_PARTIDAISVC") + 1
 			endwhile
 		endif
 	elseif ($item("TP_SITUACAO", piParams) = 4)
@@ -8846,7 +8846,7 @@ public operation alterarSituacaoPartida
 			setocc "CDF_PARTIDAISVC", 1
 			while ($status &gt;= 0)
 				IN_ENCERRADO.CDF_PARTIDAISVC = &lt;TRUE&gt;
-				setocc "CDF_PARTIDAISVC", $curocc ("CDF_PARTIDAISVC") + 1 
+				setocc "CDF_PARTIDAISVC", $curocc ("CDF_PARTIDAISVC") + 1
 			endwhile
 		endif
 	endif
@@ -8876,7 +8876,7 @@ public operation alterarSituacaoPartida
 			return(-1)
 		elseif ($status &lt; 0)
 			return(-1)
-		endif	
+		endif
 	endif
 
 	if (!$empty("CDF_PARTIDAEMISSAOSVC"))
@@ -8917,7 +8917,7 @@ public operation alterarSituacaoPartida
 		endif
 	endif
 	;&lt;-
-	
+
 	return(0)
 end ;alterarSituacaoPartida
 
@@ -8974,7 +8974,7 @@ public operation alterarSituacaoEmissao
 			;	return(-1)
 			;--&lt; MNSANTOS
 			endif
-				
+
 			if ($item("TP_SITUACAO", piParams) = 6 | $item("TP_SITUACAO", piParams) = 1)
 				clear/e "CDF_PARTIDAEMISSAOSVC"
 				CD_EMPEMISSAO.CDF_PARTIDAEMISSAOSVC = CD_EMPRESA.TEX_RECEMISSASVC
@@ -8982,9 +8982,9 @@ public operation alterarSituacaoEmissao
 				retrieve/e "CDF_PARTIDAEMISSAOSVC"
 				if ($status &gt;= 0)
 					if ($item("TP_SITUACAO", piParams) = 6)
-						TP_SITUACAO.CDF_PARTIDAEMISSAOSVC = 2 ;- Cancelado 
+						TP_SITUACAO.CDF_PARTIDAEMISSAOSVC = 2 ;- Cancelado
 					else
-						TP_SITUACAO.CDF_PARTIDAEMISSAOSVC = 1 ;- Normal 
+						TP_SITUACAO.CDF_PARTIDAEMISSAOSVC = 1 ;- Normal
 					endif
 					CD_OPERADOR.CDF_PARTIDAEMISSAOSVC = $item("CD_USUARIO", $$gParamGlb)
 					DT_CADASTRO.CDF_PARTIDAEMISSAOSVC = $datim
@@ -8994,7 +8994,7 @@ public operation alterarSituacaoEmissao
 						return(-1)
 					elseif ($status &lt; 0)
 						return(-1)
-					endif 
+					endif
 				endif
 			endif
 			;--&gt; MNSANTOS - Prj 217/623 - 11/09/2017
@@ -9027,8 +9027,8 @@ public operation alterarSituacaoEmissao
 							putitem/id vDsCondicao, "CD_EMPRESA", $item("CD_EMPRESA", vDsRegistro)
 							putitem/id vDsCondicao, "NR_CICLO", $item("NR_CICLO", vDsRegistro)
 							putitem/id vDsCondicao, "NR_OP", $item("NR_OP", vDsRegistro)
-							;putitem/id vDsCondicao, "IN_ESTORNO", $concat(&lt;FALSE&gt;, "&uOR;&uEQ;");&lt;-- LOMoreira Prj-&gt;217-689 13/12/2017 --&gt;	
-							putitem/id vDsCondicao, "IN_ESTORNO", "&uNOT;&uEQ;T";&lt;-- LOMoreira Prj-&gt;217-689 13/12/2017 --&gt;	
+							;putitem/id vDsCondicao, "IN_ESTORNO", $concat(&lt;FALSE&gt;, "&uOR;&uEQ;");&lt;-- LOMoreira Prj-&gt;217-689 13/12/2017 --&gt;
+							putitem/id vDsCondicao, "IN_ESTORNO", "&uNOT;&uEQ;T";&lt;-- LOMoreira Prj-&gt;217-689 13/12/2017 --&gt;
 							$handleConsulta$-&gt;consultar("CDF_MOVOPCSVC", vDsCondicao)
 							if($status &gt;= 0)
 								$handleConsulta$-&gt;sortEntity("DT_MOVIMENTO.CDF_MOVOPCSVC, NR_SEQMOV.CDF_MOVOPCSVC")
@@ -9052,7 +9052,7 @@ public operation alterarSituacaoEmissao
 					endif
 					setocc "CDF_PARTIDAISVC", $curocc("CDF_PARTIDAISVC") + 1
 				endwhile
-				
+
 				;--&gt; MNSANTOS - Prj 217/763 - 21/03/2018
 				if(!$empty("TMP_K06NRDTSVC"))
 					setocc "TMP_K06NRDTSVC", 1
@@ -9066,10 +9066,10 @@ public operation alterarSituacaoEmissao
 						activate "CDFSVCO025".estornaMovimento($$gParamGlb, viParams, "", $xCdErro$, $xCtxerro$)
 						if ($procerror)
 							$instancehandle-&gt;SetStatus(&lt;STS_ERRO&gt;, $procerror, $procerrorcontext, "")
-							return(-1)  
+							return(-1)
 						elseif ($status &lt; 0)
 							return(-1)
-						endif	
+						endif
 						setocc "TMP_K06NRDTSVC", $curocc("TMP_K06NRDTSVC") + 1
 					endwhile
 				endif
@@ -9085,7 +9085,7 @@ public operation alterarSituacaoEmissao
 			while ($status &gt;= 0)
 				if (DT_FECHAMENTO.TEX_RECEMIMPSVC != "" | QT_RETIRADA.TEX_RECEMIMPSVC &gt; QT_RETORNADA.TEX_RECEMIMPSVC)
 					$instancehandle-&gt;SetStatus(&lt;STS_ERRO&gt;, "MSG39989", "DESCRICAO=Não é permitido inativar a emissão pois possui M.P. baixada e/ou retirada!", "ADICIONAL=Operação-&gt;CDFSVCO038.alterarSituacaoEmissao")
-					return(-1)					
+					return(-1)
 				endif
 				setocc "TEX_RECEMIMPSVC", $curocc("TEX_RECEMIMPSVC") + 1
 			endwhile
@@ -9101,7 +9101,7 @@ public operation alterarSituacaoEmissao
 		return(-1)
 	elseif ($status &lt; 0)
 		return(-1)
-	endif 
+	endif
 
 	;-&gt;HSGARCIA Proj 217/610 10/08/2017
 	if($item("TP_SITUACAO", piParams) = 6 &amp; $tpIntAcabamentoTextil$ &gt; 0 &amp; !$empty("CDF_PARTIDASVC") &amp; getInfTecConf("", CD_MAQUINA.CDF_PARTIDASVC, "", "", 4, 42) != "");-&gt;HSGARCIA Proj 217/664 03/11/17 -- ;-&gt;HSGARCIA Proj 253/378 DVAIND-1940 05/12/2018
@@ -9268,7 +9268,7 @@ public operation recalcularConsumoEmissao
 				elseif ($status &lt; 0)
 					return(-1)
 				endif
-			endwhile			
+			endwhile
 			$collhandle("TEX_RECEMIOPESVC")-&gt;Remover()
 			if ($procerror)
 				$instancehandle-&gt;SetStatus(&lt;STS_ERRO&gt;, $procerror, $procerrorcontext, "")
@@ -9290,7 +9290,7 @@ public operation recalcularConsumoEmissao
 					return(-1)
 				endif
 			endif
-		endwhile		
+		endwhile
 		$collhandle("TEX_RECEMIFASSVC")-&gt;Remover()
 		if ($procerror)
 			$instancehandle-&gt;SetStatus(&lt;STS_ERRO&gt;, $procerror, $procerrorcontext, "")
@@ -9311,7 +9311,7 @@ public operation recalcularConsumoEmissao
 	activate "PCPSVCO043".validarReceita(viParams, voParams, $xCdErro$, $xCtxerro$)
 	if ($procerror)
 		$instancehandle-&gt;SetStatus(&lt;STS_ERRO&gt;, $procerror, $procerrorcontext, "")
-		return(-1)  
+		return(-1)
 	elseif ($status &lt; 0)
 		return(-1)
 	endif
@@ -9353,7 +9353,7 @@ public operation recalcularConsumoEmissao
 						$instancehandle-&gt;adicionarRegistroEntidade(vDsRegistro, "CDF_CFGRECEMIFASESVC")
 						if (!vInExiste | !inRegBanco("CDF_CFGRECEMIFASESVC"))
 							CD_OPERADOR.CDF_CFGRECEMIFASESVC = $item("CD_USUARIO", $$gParamGlb)
-							DT_CADASTRO.CDF_CFGRECEMIFASESVC = $datim	
+							DT_CADASTRO.CDF_CFGRECEMIFASESVC = $datim
 						endif
 						setocc "CDF_CFGRECFASESVC", $curocc("CDF_CFGRECFASESVC") + 1
 					endwhile
@@ -9387,7 +9387,7 @@ public operation recalcularConsumoEmissao
 								$instancehandle-&gt;adicionarRegistroEntidade(vDsRegistro, "CDF_CFGRECEMIOPERSVC")
 								if (!vInExiste | !inRegBanco("CDF_CFGRECEMIOPERSVC"))
 									CD_OPERADOR.CDF_CFGRECEMIOPERSVC = $item("CD_USUARIO", $$gParamGlb)
-									DT_CADASTRO.CDF_CFGRECEMIOPERSVC = $datim	
+									DT_CADASTRO.CDF_CFGRECEMIOPERSVC = $datim
 								endif
 								setocc "CDF_CFGRECOPERSVC", $curocc("CDF_CFGRECOPERSVC") + 1
 							endwhile
@@ -9428,7 +9428,7 @@ public operation recalcularConsumoEmissao
 
 							if (!vInExiste | !inRegBanco("TEX_RECEOPPRDSVC"))
 								CD_OPERADOR.TEX_RECEOPPRDSVC = $item("CD_USUARIO", $$gParamGlb)
-								DT_CADASTRO.TEX_RECEOPPRDSVC = $datim							
+								DT_CADASTRO.TEX_RECEOPPRDSVC = $datim
 							endif
 
 							if (TP_EMISSAO.TEX_RECEMISSASVC = 1)
@@ -9439,7 +9439,7 @@ public operation recalcularConsumoEmissao
 									IN_FECHAMENTO.TEX_RECEMIMPSVC = &lt;FALSE&gt;
 								endif
 								QT_ESTIMADA.TEX_RECEMIMPSVC += QT_TOTAL.TEX_RECEOPPRDSVC
-							endif							
+							endif
 
 							setocc "TEX_RECOPERPRSVC", $curocc("TEX_RECOPERPRSVC") + 1
 						endwhile
@@ -9651,7 +9651,7 @@ public operation calcularConsumoReceitaProduto
 
 				vDsLstPrd = $item("DS_LSTPRD", $itemnr(1, vDsLstOper))
 				while (vDsLstPrd != "")
-						
+
 					viParams = ""
 					putitem/id viParams, "CD_RECEITA", $item("CD_RECEITA", vDsRegReceita)
 					putitem/id viParams, "NR_FASE", $item("NR_FASE", $itemnr(1, vDsLstFase))
@@ -9665,7 +9665,7 @@ public operation calcularConsumoReceitaProduto
 					putitem/id viParams, "CD_TPUTILIZACAO", $item("CD_TPUTILIZACAO", $itemnr(1, vDsLstProc))
 					putitem/id viParams, "DS_LSTTPUTILIZACAO", getDsLstTipoUtilizacao($itemnr(1, vDsLstProc))
 					putitem/id viParams, "QT_PRODUTO", vQtProduto
-					putitem/id viParams, "CD_MAQUINA", vCdMaquina 
+					putitem/id viParams, "CD_MAQUINA", vCdMaquina
 					putitem/id viParams, "IN_FASEPADRAO", $item("IN_FASEPADRAO", vDsRegReceita)
 					putitem/id viParams, "IN_RECEITAPARTIDA", &lt;FALSE&gt;
 					putitem/id viParams, "DS_LSTPRDCORANTE", $item("DS_LSTPRDCORANTE", vDsRegReceita)
@@ -9690,7 +9690,7 @@ public operation calcularConsumoReceitaProduto
 
 		delitem vDsLstProc, 1
 	endwhile
-	;&lt;-- LOMoreira Prj-&gt;217-670 13/11/2017 --&gt;	
+	;&lt;-- LOMoreira Prj-&gt;217-670 13/11/2017 --&gt;
 
 	putitem/id poParams, "DS_LSTMP", vDsLstMp
 	return(0)
@@ -9871,7 +9871,7 @@ public operation buscarConsumoFaixa
 							putitem/id vDsRegistro, "CD_CLASSIFICACAO", CD_CLASSIFICACAO.CDF_PRDCLARECSVC
 							putitem/id vDsRegistro, "PR_TOTAL", vPrCorante
 							putitem/id vDsRegistro, "QT_REPETICAO", vQtRepeticao
-							putitem vDsListaFor, -1, vDsRegistro											
+							putitem vDsListaFor, -1, vDsRegistro
 							setocc "CDF_PRDCLAFORSVC", $curocc("CDF_PRDCLAFORSVC") + 1
 						endwhile
 					endif
@@ -10019,7 +10019,7 @@ public operation buscarCapacidadeMaq
 	endparams
 
 	putitem/id poParams, "QT_CAPACIDADE", getCapacidadeMaquina($item("CD_MAQUINA", piParams), $item("IN_MINIMO", piParams))
-	
+
 	return(0)
 End; operation buscarCapacidadeMaq
 
@@ -10133,7 +10133,7 @@ public operation gerarReprocessoPartida
 				endif
 				vDsRegistro = ""
 				putitem/id vDsRegistro, "NR_LOTE", $item("NR_LOTE", $itemnr(1, vDsLstItemOri))
-				putitem/id vDsRegistro, "NR_ITEM", $item("NR_ITEM", $itemnr(1, vDsLstItemOri)) 				
+				putitem/id vDsRegistro, "NR_ITEM", $item("NR_ITEM", $itemnr(1, vDsLstItemOri))
 				;&lt;-- DSantos MVA-1221 220/2669 12/12/2017
 				if ($item("QT_PRODUTOOP", $itemnr(1, vDsLstItemOri)) != "")
 					putitem/id vDsRegistro, "QT_LOTE", $item("QT_PRODUTOOP", $itemnr(1, vDsLstItemOri))
@@ -10170,7 +10170,7 @@ public operation gerarReprocessoPartida
 				vDsRegistro = ""
 				putitem/id vDsRegistro, "CD_EMPRESA", NR_CHAVE01.TMP_K06NR10SVC
 				putitem/id vDsRegistro, "NR_CICLO", NR_CHAVE02.TMP_K06NR10SVC
-				putitem/id vDsRegistro, "NR_OP", NR_CHAVE03.TMP_K06NR10SVC	
+				putitem/id vDsRegistro, "NR_OP", NR_CHAVE03.TMP_K06NR10SVC
 				putitem/id vDsRegistro, "CD_PRODUTO", NR_CHAVE04.TMP_K06NR10SVC
 				putitem/id vDsRegistro, "QT_PRODUTO", QT_MOVIMENTO.TMP_K06NR10SVC
 				putitem/id vDsRegistro, "CD_SEQGRUPO", getFieldData("CD_SEQGRUPO", "PRD_PRDGRADESVC", "CD_PRODUTO=%%NR_CHAVE04.TMP_K06NR10SVC")
@@ -10191,10 +10191,10 @@ public operation gerarReprocessoPartida
 			activate "CDFSVCO025".movimentarOP($$gParamGlb, viParams, voParams, $xCdErro$, $xCtxerro$)
 			if ($procerror)
 				$instancehandle-&gt;SetStatus(&lt;STS_ERRO&gt;, $procerror, $procerrorcontext, "")
-				return(-1)  
+				return(-1)
 			elseif ($status &lt; 0)
 				return(-1)
-			endif	
+			endif
 		endif
 	endif
 
@@ -10204,7 +10204,7 @@ public operation gerarReprocessoPartida
 		vDsLstMovimento = ""
 		clear/e "TMP_K06NR10SVC"
 		while (vDsLstItemDest != "")
-			if ($item("NR_LOTEORI", $itemnr(1, vDsLstItemDest)) != "")			
+			if ($item("NR_LOTEORI", $itemnr(1, vDsLstItemDest)) != "")
 				creocc "TMP_K06NR10SVC", -1
 				NR_CHAVE01.TMP_K06NR10SVC = $item("CD_EMPRESA", $itemnr(1, vDsLstItemDest))
 				NR_CHAVE02.TMP_K06NR10SVC = $item("NR_CICLO", $itemnr(1, vDsLstItemDest))
@@ -10228,8 +10228,8 @@ public operation gerarReprocessoPartida
 					putitem/id vDsRegistro, "QT_LOTE", $item("QT_PRODUTOOP", $itemnr(1, vDsLstItemDest))
 				else
 					putitem/id vDsRegistro, "QT_LOTE", $item("QT_PRODUTO", $itemnr(1, vDsLstItemDest))
-				endif				
-				; DSantos --&gt; 				
+				endif
+				; DSantos --&gt;
 				putitem/id vDsRegistro, "CD_COMPONENTE", $componentname
 				putitem/id vDsRegistro, "CD_COMPONENTEINC", $componentname
 				putitem/id vDsRegistro, "DT_INCLUSAO", $datim
@@ -10270,10 +10270,10 @@ public operation gerarReprocessoPartida
 					$instancehandle-&gt;adicionarGrupoOp(vDsRegistro)
 					if ($procerror)
 						$instancehandle-&gt;SetStatus(&lt;STS_ERRO&gt;, $procerror, $procerrorcontext, "")
-						return(-1)  
+						return(-1)
 					elseif ($status &lt; 0)
 						return(-1)
-					endif	
+					endif
 				endif
 
 				vDsRegPartida = ""
@@ -10298,7 +10298,7 @@ public operation gerarReprocessoPartida
 				vDsRegistro = ""
 				putitem/id vDsRegistro, "CD_EMPRESA", NR_CHAVE01.TMP_K06NR10SVC
 				putitem/id vDsRegistro, "NR_CICLO", NR_CHAVE02.TMP_K06NR10SVC
-				putitem/id vDsRegistro, "NR_OP", NR_CHAVE03.TMP_K06NR10SVC	
+				putitem/id vDsRegistro, "NR_OP", NR_CHAVE03.TMP_K06NR10SVC
 				putitem/id vDsRegistro, "CD_PRODUTO", NR_CHAVE04.TMP_K06NR10SVC
 				putitem/id vDsRegistro, "QT_PRODUTO", QT_MOVIMENTO.TMP_K06NR10SVC
 				putitem/id vDsRegistro, "CD_SEQGRUPO", getFieldData("CD_SEQGRUPO", "PRD_PRDGRADESVC", "CD_PRODUTO=%%NR_CHAVE04.TMP_K06NR10SVC")
@@ -10310,7 +10310,7 @@ public operation gerarReprocessoPartida
 				$instancehandle-&gt;adicionarGrupoOp(vDsRegistro)
 				if ($procerror)
 					$instancehandle-&gt;SetStatus(&lt;STS_ERRO&gt;, $procerror, $procerrorcontext, "")
-					return(-1)  
+					return(-1)
 				elseif ($status &lt; 0)
 					return(-1)
 				endif
@@ -10328,10 +10328,10 @@ public operation gerarReprocessoPartida
 			activate "CDFSVCO025".movimentarOP($$gParamGlb, viParams, voParams, $xCdErro$, $xCtxerro$)
 			if ($procerror)
 				$instancehandle-&gt;SetStatus(&lt;STS_ERRO&gt;, $procerror, $procerrorcontext, "")
-				return(-1)  
+				return(-1)
 			elseif ($status &lt; 0)
 				return(-1)
-			endif	
+			endif
 
 			vDsLstItem = associarItemLoteCriado($item("DS_LSTLOTECRIADO", voParams), vDsLstItem)
 		endif
@@ -10355,29 +10355,29 @@ public operation gerarReprocessoPartida
 		vDsRegistro = ""
 		vDsRegistro = $item("DS_RECEITA", piParams)
 
-		viParams = "" 
+		viParams = ""
 		putitem/id viParams, "CD_EMPRESA", vCdEmpPartida
 		putitem/id viParams, "NR_PARTIDA", vNrPartida
 		putitem/id viParams, "CD_COR", $item("CD_COR", vDsRegistro)
 		putitem/id viParams, "CD_PROCORGATEX", $item("CD_PROCORGATEX", vDsRegistro)
-		putitem/id viParams, "DS_ENTITY", "CDF_PARTIDARECSVC" 
-		putitem/id viParams, "DS_KEYS", "CD_EMPRESA&uSEP;NR_PARTIDA" 
-		activate "PCPSVCO043".salvarReceitaPartida(viParams, voParams, $xCdErro$, $xCtxErro$)  
-		if ($procerror) 
-			$instancehandle-&gt;setStatus(&lt;STS_ERRO&gt;, $procerror, $procerrorcontext, "") 
-			return (-1) 
-		elseif ($status &lt; 0) 
-			return (-1) 
-		endif  
+		putitem/id viParams, "DS_ENTITY", "CDF_PARTIDARECSVC"
+		putitem/id viParams, "DS_KEYS", "CD_EMPRESA&uSEP;NR_PARTIDA"
+		activate "PCPSVCO043".salvarReceitaPartida(viParams, voParams, $xCdErro$, $xCtxErro$)
+		if ($procerror)
+			$instancehandle-&gt;setStatus(&lt;STS_ERRO&gt;, $procerror, $procerrorcontext, "")
+			return (-1)
+		elseif ($status &lt; 0)
+			return (-1)
+		endif
 
 		viParams = ""
 		viParams = vDsRegistro
 		viParams = $replace(viParams, 1, "-1", vCdEmpPartida, -1)
 		viParams = $replace(viParams, 1, "-2", vNrPartida, -1)
 		putitem/id viParams, "CD_EMPRESA", vCdEmpPartida
-		putitem/id viParams, "NR_PARTIDA", vNrPartida 
+		putitem/id viParams, "NR_PARTIDA", vNrPartida
 		activate "PCPSVCO043".salvarFaseReceita(viParams, voParams, $xCdErro$, $xCtxErro$)
-		if ($procerror)       
+		if ($procerror)
 			$instancehandle-&gt;SetStatus(&lt;STS_ERRO&gt;, $procerror, $procerrorcontext, "")
 			return(-1)
 		elseif ($status &lt; 0)
@@ -10428,22 +10428,22 @@ partner operation adicionarGrupoOp
 	if ($status &gt;= 0)
 		return(0)
 	endif
-			
+
 	activate "PCPSVCO031".gravaGrupoOp($$gParamGlb, viParams, "", $xCdErro$, $xCtxErro$)
 	if ($procerror)
 		$instancehandle-&gt;SetStatus(&lt;STS_ERRO&gt;, $procerror, $procerrorcontext, "")
-		return(-1)  
+		return(-1)
 	elseif ($status &lt; 0)
 		return(-1)
-	endif	
+	endif
 
 	activate "CDFSVCO028".sugerirProgramacaoOp($$gParamGlb, viParams, "", $xCdErro$, $xCtxerro$)
 	if ($procerror)
 		$instancehandle-&gt;SetStatus(&lt;STS_ERRO&gt;, $procerror, $procerrorcontext, "")
-		return(-1)  
+		return(-1)
 	elseif ($status &lt; 0)
 		return(-1)
-	endif		
+	endif
 
 	return(0)
 end ;adicionarGrupoOp
@@ -10465,9 +10465,9 @@ public operation salvarEntidade
 
 	if (!inValidarParametro("DS_ENTITY", piParams, "salvarEntidade"))
 		return(-1)
-	endif	
+	endif
 
-	vDsEntity = $item("DS_ENTITY", piParams)	
+	vDsEntity = $item("DS_ENTITY", piParams)
 	vDsKeys = getEntityFields(vDsEntity, 1)
 
 	if (!inValidarParametro(vDsKeys, piParams, "salvarEntidade"))
@@ -10482,7 +10482,7 @@ public operation salvarEntidade
 		delitem/id piParams, $itemnr(1, vDsKeys)
 		delitem vDsKeys, 1
 	endwhile
-	
+
 	vInExiste = getStatusExiste(vDsEntity)
 	getlistitems/occ piParams, vDsEntity
 	if (!vInExiste | !inRegBanco(vDsEntity))
@@ -10495,10 +10495,10 @@ public operation salvarEntidade
 	$collhandle(vDsEntity)-&gt;Salvar()
 	if ($procerror)
 		$instancehandle-&gt;SetStatus(&lt;STS_ERRO&gt;, $procerror, $procerrorcontext, "")
-		return(-1)  
+		return(-1)
 	elseif ($status &lt; 0)
 		return(-1)
-	endif		
+	endif
 
 	return(0)
 end ;salvarEntidade
@@ -10519,7 +10519,7 @@ public operation buscaProximaPartida
 	endif
 
 	putitem/id poParams, "NR_PARTIDA", getNrNovaPartida($item("CD_EMPRESA", piParams))
-	
+
 	return(0)
 End; operation buscaProximaPartida ;&lt;--ROS.
 
@@ -10547,11 +10547,11 @@ partner operation validarTipoSeguro
 		if($status &lt; 0)
 			return(-1)
 		endif
-		
+
 		;HSGARCIA Proj 253/100 05/07/2018
 		if(vCdProduto &gt; 0)
 			delitem/id vDsCondicao, "CD_EMPRESA"
-			putitem/id vDsCondicao, "CD_EMPPARTIDA", piCdEmpresa	
+			putitem/id vDsCondicao, "CD_EMPPARTIDA", piCdEmpresa
 			vCdProcesso = getFieldData("CD_PROCESSO", "CDF_PARTIDAPSVC", vDsCondicao)
 			if($tpIntAcabamentoTextil$ &gt; 0 &amp; getInfTecConf("", piCdMaquina, "", "", 4, 42) != "" &amp; vCdProduto &gt; 0) ;-&gt;HSGARCIA Proj 253/378 DVAIND-1940 05/12/2018
 				vDsCondicao = ""
@@ -10592,14 +10592,14 @@ partner operation validarSaldoEmiRec
 	endif
 
 	newinstance "PRDSVCO057", $handleSaldo$, "TRANSACTION=TRUE"
-	
+
 	vDsCondicao = ""
 	putitem/id vDsCondicao, "CD_OPERACAO", CD_OPERACAO.TEX_RECEMISSASVC
 	putitem/id vDsCondicao, "IN_PADRAO", &lt;TRUE&gt;
 
 	viParams = ""
 	putitem/id viParams, "CD_SALDO", getFieldData("CD_SALDO", "GER_OPERSALDOSVC", vDsCondicao)
-	$handleSaldo$-&gt;inicializar(viParams, voParams, $xCdErro$, $xCtxErro$)	
+	$handleSaldo$-&gt;inicializar(viParams, voParams, $xCdErro$, $xCtxErro$)
 	if($procerror)
 		$instancehandle-&gt;setStatus(&lt;STS_ERRO&gt;, $procerror, $procreturncontext, "")
 		return(-1)
@@ -10619,8 +10619,8 @@ partner operation validarSaldoEmiRec
 			poDsLstSaldoPrd = $concat(poDsLstSaldoPrd, "	- Estoque.........: ", formatarConteudo(vQtSaldoEstoque, "N=9;6"), "%%^")
 			poDsLstSaldoPrd = $concat(poDsLstSaldoPrd, "	- Emissão atual...: ", formatarConteudo(QT_ESTIMADA.TEX_RECEMIMPSVC, "N=9;6"), "%%^")
 			poDsLstSaldoPrd = $concat(poDsLstSaldoPrd, "	- Emissão pendente: ", formatarConteudo(vQtSaldoPendenteEmissao, "N=9;6"), "%%^")
-			poDsLstSaldoPrd = $concat(poDsLstSaldoPrd, "	- Resultado.......: ", formatarConteudo(vQtSaldo, "N=9;6"), "%%^", "%%^")			
-		endif		
+			poDsLstSaldoPrd = $concat(poDsLstSaldoPrd, "	- Resultado.......: ", formatarConteudo(vQtSaldo, "N=9;6"), "%%^", "%%^")
+		endif
 		setocc "TEX_RECEMIMPSVC", $curocc("TEX_RECEMIMPSVC") + 1
 	endwhile
 
@@ -10691,7 +10691,7 @@ partner operation baixarMpEmissaoAut
 						endif
 
 						$handleConsulta$-&gt;next()
-					endwhile					
+					endwhile
 				endif
 
 				if (vDsLstMp != "")
@@ -10701,8 +10701,8 @@ partner operation baixarMpEmissaoAut
 					putitem/id viParams, "CD_OPERACAO", $item("CD_OPERACAO", vDsRegEmi)
 					putitem/id viParams, "DS_LSTMP", vDsLstMp
 					activate "PCPSVCO044".processarRecEmiMP($$gParamGlb, viParams, voParams, $xCdErro$, $xCtxErro$)
-					if ($procerror)       
-						$instancehandle-&gt;SetStatus(&lt;STS_ERRO&gt;, $procerror, $procerrorcontext, "")	
+					if ($procerror)
+						$instancehandle-&gt;SetStatus(&lt;STS_ERRO&gt;, $procerror, $procerrorcontext, "")
 						return(-1)
 					elseif ($status &lt; 0)
 						putitem/id $xCtxErro$, "DS_ERRO", $item("DS_ERRO", voParams)
@@ -10772,7 +10772,7 @@ partner operation gravarPadraoTecPartida
 	if ($procerror)
 		$instancehandle-&gt;SetStatus(&lt;STS_ERRO&gt;, $procerror, $procerrorcontext, "")
 		return(-1)
-	elseif ($status &lt; 0)		
+	elseif ($status &lt; 0)
 		return(-1)
 	endif
 
@@ -10785,7 +10785,7 @@ end ;gravarPadraoTecPartida
 ;----------------------------------
 public operation gravarTempoPartida
 	;-------------------------------
-;-&gt;HSGARCIA Proj 253/31 25/04/2018 
+;-&gt;HSGARCIA Proj 253/31 25/04/2018
 	params
 		string piParams : IN
 		string poParams : OUT
@@ -10811,7 +10811,7 @@ public operation gravarTempoPartida
 		retrieve/x "CDF_PARTIDASVC"
 	endif
 
-	;IAS - PRJ/TAR - 253/0028 - 23/04/2018	
+	;IAS - PRJ/TAR - 253/0028 - 23/04/2018
 	if(getFieldData("IN_EFICIENCIA", "CDF_MAQCONFPARSVC", "CD_MAQUINA=%%CD_MAQUINA.CDF_PARTIDASVC") = "T")
 		vDsCondicao = ""
 		putitem/id vDsCondicao, "CD_EMPRESA", CD_EMPRESA.CDF_PARTIDASVC
@@ -10826,12 +10826,12 @@ public operation gravarTempoPartida
 			activate "PCPSVCO057".calcularTempoPeriodo(viParams, voParams, $xCdErro$, $xCtxerro$)
 			if ($procerror)
 				$instancehandle-&gt;SetStatus(&lt;STS_ERRO&gt;, $procerror, $procerrorcontext, "")
-				return(-1)  
+				return(-1)
 			elseif ($status &lt; 0)
 				return(-1)
 			endif
 
-			;-&gt;HSGARCIA Proj 253/31 25/04/2018 
+			;-&gt;HSGARCIA Proj 253/31 25/04/2018
 			clear/e "CDF_PARTIDATEMPOSVC"
 			retrieve/e "CDF_PARTIDATEMPOSVC"
 			if($status &gt;= 0)
@@ -10839,7 +10839,7 @@ public operation gravarTempoPartida
 					$collhandle("CDF_PARTIDATEMPOSVC")-&gt;excluir()
 					if ($procerror)
 						$instancehandle-&gt;SetStatus(&lt;STS_ERRO&gt;, $procerror, $procerrorcontext, "")
-						return(-1)  
+						return(-1)
 					elseif ($status &lt; 0)
 						return(-1)
 					endif
@@ -10850,7 +10850,7 @@ public operation gravarTempoPartida
 			vDsAux = $item("DS_LSTPERIODO", voParams)
 			vDsAux = $replace(vDsAux, 1, "DT_CALENDARIO", "DT_PERIODO", -1)
 			while(vDsAux != "")
-				
+
 				creocc "CDF_PARTIDATEMPOSVC", -1
 				getlistitems/occ $itemnr(1, vDsAux), "CDF_PARTIDATEMPOSVC"
 			   CD_OPERADOR.CDF_PARTIDATEMPOSVC = $item("CD_USUARIO", $$gParamGlb)
@@ -10858,14 +10858,14 @@ public operation gravarTempoPartida
 				delitem vDsAux, 1
 			endwhile
 		endif
-		;&lt;-	
+		;&lt;-
 
 		$collhandle("CDF_PARTIDATEMPOSVC")-&gt;Salvar()
 		if ($procerror)
 			$instancehandle-&gt;SetStatus(&lt;STS_ERRO&gt;, $procerror, $procerrorcontext, "")
 			return(-1)
 		elseif ($status &lt; 0)
-			$instancehandle-&gt;SetStatus(&lt;STS_ERRO&gt;, $xCdErro$, $xCtxErro$, "")    
+			$instancehandle-&gt;SetStatus(&lt;STS_ERRO&gt;, $xCdErro$, $xCtxErro$, "")
 			return(-1)
 		endif
 
@@ -10877,7 +10877,7 @@ end ;gravarTempoPartida
 ;---------------------------------------
 public operation gravarEficienciaPartida
 	;------------------------------------
-	;-&gt;HSGARCIA Proj 253/31 25/04/2018 
+	;-&gt;HSGARCIA Proj 253/31 25/04/2018
 	params
 		string piParams : IN
 		string poParams : OUT
@@ -10897,7 +10897,7 @@ public operation gravarEficienciaPartida
 		return(0)
 	endif
 
-	;IAS - PRJ/TAR - 253/0028 - 23/04/2018	
+	;IAS - PRJ/TAR - 253/0028 - 23/04/2018
 	PR_EFICIENCIA.CDF_PARTIDASVC = prCalcularEficienciaPartida(CD_EMPRESA.CDF_PARTIDASVC, NR_PARTIDA.CDF_PARTIDASVC, CD_MAQUINA.CDF_PARTIDASVC)
 
 	$collhandle("CDF_PARTIDASVC")-&gt;Salvar()
@@ -10905,7 +10905,7 @@ public operation gravarEficienciaPartida
 		$instancehandle-&gt;SetStatus(&lt;STS_ERRO&gt;, $procerror, $procerrorcontext, "")
 		return(-1)
 	elseif ($status &lt; 0)
-		$instancehandle-&gt;SetStatus(&lt;STS_ERRO&gt;, $xCdErro$, $xCtxErro$, "")    
+		$instancehandle-&gt;SetStatus(&lt;STS_ERRO&gt;, $xCdErro$, $xCtxErro$, "")
 		return(-1)
 	endif
 
@@ -10970,9 +10970,9 @@ public operation desalocarPartidaReprocesso
 		if ($procerror)
 			$instancehandle-&gt;SetStatus(&lt;STS_ERRO&gt;, $procerror, $procerrorcontext, "")
 			return(-1)
-		elseif ($status &lt; 0)		
+		elseif ($status &lt; 0)
 			return(-1)
-		endif	
+		endif
 	endif
 
 	return(0)
@@ -10986,7 +10986,7 @@ partner operation atualizarDtUtilizacao
 		string piCdReceita : IN
 	endparams
 	variables
-		string vDsRegistro,voParams 
+		string vDsRegistro,voParams
 	endvariables
 
 	$handleEntity$-&gt;consultar("TEX_RECEITASVC", "CD_RECEITA=%%piCdReceita")
@@ -10997,14 +10997,14 @@ partner operation atualizarDtUtilizacao
 	$handleEntity$-&gt;getRegistro(vDsRegistro)
 	putitem/id vDsRegistro, "DT_ULTIMAUTILIZACAO", $datim
 	activate "PCPSVCO043".gravaReceitaC($$gParamGlb, vDsRegistro, voParams, $xCdErro$, $xCtxErro$)
-	if ($procerror)       
+	if ($procerror)
 		$instancehandle-&gt;SetStatus(&lt;STS_ERRO&gt;, $procerror, $procerrorcontext, "")
 		return(-1)
 	elseif ($status &lt; 0)
 		return(-1)
 	endif
-	
-	return(0)	
+
+	return(0)
 
 End ;atualizarDtUtilizacao
 
@@ -11044,7 +11044,7 @@ public operation substituirProdutoEmissao
 			$instancehandle-&gt;SetStatus(&lt;STS_ERRO&gt;, "MSG43607", "DESCRICAO=Fase informada não encontrada na emissão!", "ADICIONAL=Operação-&gt;CDFSVCO038.substituirProdutoEmissao")
 			return(-1)
 		endif
-	
+
 		clear/e "TEX_RECEMIOPESVC"
 		NR_SEQOPER.TEX_RECEMIOPESVC/init = $item("NR_SEQOPER", $itemnr(1, vDsLista))
 		retrieve/e "TEX_RECEMIOPESVC"
@@ -11052,7 +11052,7 @@ public operation substituirProdutoEmissao
 			$instancehandle-&gt;SetStatus(&lt;STS_ERRO&gt;, "MSG43608", "DESCRICAO=Operacão informada não encontrada na emissão!", "ADICIONAL=Operação-&gt;CDFSVCO038.substituirProdutoEmissao")
 			return(-1)
 		endif
-	
+
 		clear/e "TEX_RECEOPPRDSVC"
 		CD_PRODUTO.TEX_RECEOPPRDSVC/init = $item("CD_PRODUTOORI", piParams)
 		retrieve/e "TEX_RECEOPPRDSVC"
@@ -11108,7 +11108,7 @@ public operation substituirProdutoEmissao
 			CD_PRODUTO.TEX_RECEMIMPSVC = CD_PRODUTO.TEX_RECEOPPRDSVC
 			retrieve/o "TEX_RECEMIMPSVC"
 			if($status = 0)
-				IN_FECHAMENTO.TEX_RECEMIMPSVC = &lt;FALSE&gt;	
+				IN_FECHAMENTO.TEX_RECEMIMPSVC = &lt;FALSE&gt;
 			else
 				if($status = -7)
 					retrieve/x "TEX_RECEMIMPSVC"
@@ -11123,7 +11123,7 @@ public operation substituirProdutoEmissao
 			DT_CADASTRO.TEX_RECEMIMPSVC = $datim
 
 			setocc "TEX_RECEOPPRDSVC", $curocc("TEX_RECEOPPRDSVC") + 1
-		endwhile	
+		endwhile
 
 		$collhandle("TEX_RECEMISSASVC")-&gt;Salvar()
 		if ($procerror)
@@ -11131,8 +11131,8 @@ public operation substituirProdutoEmissao
 			return(-1)
 		elseif ($status &lt; 0)
 			return(-1)
-		endif	
-	
+		endif
+
 		$collhandle("TEX_RELSUBPRDRECEMISVC")-&gt;Salvar()
 		if ($procerror)
 			$instancehandle-&gt;SetStatus(&lt;STS_ERRO&gt;, $procerror, $procerrorcontext, "")
@@ -11172,7 +11172,7 @@ end; buscarQtBaixadaMpPrincipal
 public operation bloquearReceitaMovimento
 	;------------------------------------
 	;IES Proj/tar 253/349 21/11/2018 DVAIND-1254
-	params 
+	params
 	string piParams : IN
 	string poParams : OUT
 	string $xCdErro$ : OUT
@@ -11189,12 +11189,12 @@ public operation bloquearReceitaMovimento
 
 	vDsLstProdutoOp = $item("DS_LSTPRODUTOS", piParams)
 	while(vDsLstProdutoOp != "")
-	
+
 		clear/e "PCP_OPISEQPROSVC"
 		CD_EMPRESA.PCP_OPISEQPROSVC/init = $item("CD_EMPRESA", piParams)
 		NR_CICLO.PCP_OPISEQPROSVC/init = $item("NR_CICLO", piParams)
 		NR_OP.PCP_OPISEQPROSVC/init = $item("NR_OP", piParams)
-		CD_PRODUTO.PCP_OPISEQPROSVC/init = $itemnr(1, vDsLstProdutoOp) 
+		CD_PRODUTO.PCP_OPISEQPROSVC/init = $itemnr(1, vDsLstProdutoOp)
 		retrieve/e "PCP_OPISEQPROSVC"
 		if ($status &gt;= 0)
 			setocc "PCP_OPISEQPROSVC", 1
@@ -11206,16 +11206,16 @@ public operation bloquearReceitaMovimento
 					retrieve/e "TEX_RECEITASVC"
 					if ($status &gt;= 0)
 						TP_SITUACAO.TEX_RECEITASVC = 05
-					
+
 						viParams = ""
 						putlistitems/occ viParams, "TEX_RECEITASVC"
 						activate "PCPSVCO043".gravaReceitaC($$gParamGlb, viParams, voParams, $xCdErro$, $xCtxErro$)
-						if ($procerror)     
+						if ($procerror)
 						$instancehandle-&gt;setStatus(&lt;STS_ERRO&gt;, $procerror, $procerrorcontext, "")
 							return(-1)
 						elseif ($status &lt; 0)
 							return(-1)
-						endif  
+						endif
 						delitem vDsLstReceita, 1
 					endif
 				endwhile
@@ -11224,7 +11224,7 @@ public operation bloquearReceitaMovimento
 		endif
 		delitem vDsLstProdutoOp, 1
 	endwhile
-	
+
 	return(0)
 end ;bloquearReceitaMovimento
 
@@ -11416,7 +11416,7 @@ end ;bloquearReceitaMovimento
 <DAT name="UFORM">CDFSVCO038</DAT>
 <DAT name="UINHERIT">F</DAT>
 <DAT name="LCK" xml:space='preserve'>;#include &lt;LIB_PADRAO&gt;:DEF_LOCK
-lock  
+lock
 if ($status = -10)
 	reload
 else
@@ -12018,11 +12018,11 @@ endif
 <DAT name="TPLINTF">DS_GERAL</DAT>
 <DAT name="WIDGETTYPE">EDITBOX</DAT>
 <DAT name="UINHERIT">F</DAT>
-<DAT name="ERROR" xml:space='preserve'>; Include an "else" block like the one shown below at the end of any 
+<DAT name="ERROR" xml:space='preserve'>; Include an "else" block like the one shown below at the end of any
 ; Proc written in this trigger.
 ; . . .
 ; else
-;    message $text("%%$error") 
+;    message $text("%%$error")
 ;    return (-1)
 ; endif
 </DAT>
